@@ -32,8 +32,8 @@
         </li>
       </ul>
     </div>
-    <div class="mainBox">
-      <div class="leftBox">
+    <div class="mainBoxs">
+      <div class="leftBoxs">
         <div class="leftTop itemBox">
           <div class="title">快捷操作</div>
           <div class="btnRow">
@@ -69,10 +69,10 @@
         <div class="title">统计分析</div>
         <div class="tabBoxs">
           <div>
-            <i class="icon"></i>支出统计
+            <i class="icon icon-expenditure"></i>支出统计
           </div>
           <div>
-            <i class="icon"></i>订单统计
+            <i class="icon icon-order"></i>订单统计
           </div>
         </div>
         <div>
@@ -177,7 +177,7 @@ export default {
 .workbench {
   padding: 1rem;
   background: rgba(242, 244, 250, 1);
-  height: calc(100vh - 9.6rem);
+  min-height: calc(100vh - 9.6rem);
   box-sizing: border-box;
 
   .title {
@@ -197,6 +197,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color:black;
 
     ul {
       display: flex;
@@ -236,10 +237,10 @@ export default {
     background: #fff;
   }
 
-  .mainBox {
+  .mainBoxs {
     display: flex;
 
-    .leftBox {
+    .leftBoxs {
       flex: 1;
 
       .leftTop {
@@ -326,7 +327,16 @@ export default {
       height: 1rem;
       margin-right: 0.5rem;
       display: block;
-      background: pink;
+    }
+
+    .icon-expenditure {
+      background: url("../assets/imgs/btn-zhichu2.png") no-repeat;
+      background-size: contain;
+    }
+
+    .icon-order {
+      background: url("../assets/imgs/btn-dingdan2.png") no-repeat;
+      background-size: contain;
     }
   }
 
@@ -338,8 +348,9 @@ export default {
       display: inline-block;
       width: 1rem;
       height: 1rem;
-      background: pink;
       margin-left: 0.5rem;
+      background: url("../assets/imgs/btn-hqbz.png") no-repeat;
+      background-size: contain;
     }
 
     
