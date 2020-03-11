@@ -78,8 +78,8 @@
                     </el-table-column>
                     <el-table-column label="认可项目">
                         <template slot-scope="scope">
-                            <div class="taskStatusOne" v-if="scope.row.num">进行中</div>
-                            <div class="taskStatusTwo" v-else>已完成</div>
+                            <div v-if="scope.row.num">是</div>
+                            <div v-else>否</div>
                         </template>
                     </el-table-column>
                     <el-table-column label="按需报价">
@@ -90,8 +90,8 @@
                     </el-table-column>
                     <el-table-column label="单价">
                         <template slot-scope="scope">
-                            <div v-if="scope.row.payStatus"><i></i>支出</div>
-                            <div v-else><i></i>支出</div>
+                            <div v-if="scope.row.payStatus"><i></i>￥40</div>
+                            <div v-else><i></i>￥40</div>
                         </template>
                     </el-table-column>
                     <el-table-column label="计价单位">

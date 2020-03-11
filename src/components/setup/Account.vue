@@ -68,6 +68,7 @@
                 width: 8rem;
                 padding: 0.8rem 0 0.8rem 0.8rem;
                 box-sizing: border-box;
+                border-bottom:1px solid #eeeeee;
 
                 i {
                     margin-right: 0.3rem;
@@ -134,6 +135,7 @@
             width: 100%;
             box-sizing: border-box;
             margin: 0 1rem;
+            padding-top:1rem;
         }
     }
 

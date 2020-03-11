@@ -10,8 +10,8 @@
                         <div>TE-001 湿湿度试验箱</div>
                     </div>
                     <div class="btnRows">
-                        <el-button size="mini" round>返回</el-button>
-                        <el-button size="mini" round>取消关联</el-button>
+                        <el-button size="mini" round class="greenBtn">返回</el-button>
+                        <el-button size="mini" round class="cancelBtn">取消关联</el-button>
                     </div>
                 </div>
                 <div class="itemBox">
@@ -120,15 +120,16 @@ import AddProduct from "../components/dialog/AddProduct";
             display: flex;
             justify-content: center;
             padding:1rem 0;
+            border-top:1px solid #eeeeee;
         }
 
         .nameList{
             display: flex;
             align-items: center;
-            padding:0.5rem;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
+            padding:1.5rem 0.5rem;
 
             .el-avatar{
                 margin-right:0.3rem;
@@ -142,6 +143,8 @@ import AddProduct from "../components/dialog/AddProduct";
                 justify-content: center;
                 align-items: center;
                 padding: 0.5rem;
+                width:5rem;
+                color:#999999;
 
                 &>div{
                     font-size:0.75rem;

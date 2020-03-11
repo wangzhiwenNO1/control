@@ -2,15 +2,18 @@
 <template>
   <div class="Chat">
     <div class="chatTop">
-      <el-steps :active="active" finish-status="success" align-center>
-        <el-step title="创建"></el-step>
-        <el-step title="询价"></el-step>
-        <el-step title="执行"></el-step>
-        <el-step title="结束"></el-step>
-      </el-steps>
-      <div class="btnRow">
-        <div class="btn">录入变更</div>
+      <div class="schedule">
+        <el-steps :active="active" finish-status="success" align-center>
+          <el-step title="创建"></el-step>
+          <el-step title="询价"></el-step>
+          <el-step title="执行"></el-step>
+          <el-step title="结束"></el-step>
+        </el-steps>
+        <div class="btnRow">
+          <div class="btn">录入变更</div>
+        </div>
       </div>
+
       <div class="chatBox">
         <div class="title">
           <div>消息记录</div>
@@ -54,15 +57,14 @@ export default {
   data() {
     return {
       active: 4,
-      desc:""
+      desc: ""
     };
   }
 };
 </script>
 <style lang="less">
 .chatTop {
-  padding: 1rem;
-  background: #ffffff;
+  
   border-radius: 0.3rem;
 
   .el-step__title {
@@ -75,6 +77,20 @@ export default {
   }
   .el-step__title.is-success {
     color: black;
+  }
+
+  .schedule{
+    background: #ffffff;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.3rem;
+  }
+
+  .chatBox{
+    background: #ffffff;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.3rem;
   }
 }
 

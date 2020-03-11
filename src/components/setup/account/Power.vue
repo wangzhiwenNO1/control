@@ -29,8 +29,8 @@
             </el-table-column>
         </el-table>
         <div class="btnRows">
-            <el-button round size="mini">更新</el-button>
-            <el-button round size="mini">取消</el-button>
+            <el-button round size="mini" class="greenBtn">更新</el-button>
+            <el-button round size="mini" class="cancelBtn">取消</el-button>
         </div>
     </div>
 

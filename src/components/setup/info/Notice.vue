@@ -9,20 +9,19 @@
             </div>
 
         </el-form-item>
-        <div>
+        <div class="elCheckbox">
             <el-checkbox-group v-model="checkList" class="checkbox">
-                <el-checkbox label="复选框 A"></el-checkbox>
-                <el-checkbox label="复选框 B"></el-checkbox>
-                <el-checkbox label="复选框 C"></el-checkbox>
-                <el-checkbox label="禁用" disabled></el-checkbox>
-                <el-checkbox label="选中且禁用" disabled></el-checkbox>
+                <el-checkbox label="订单状态更新时通知我"></el-checkbox>
+                <el-checkbox label="有新消息时通知我"></el-checkbox>
+                <el-checkbox label="有内部公告时通知我"></el-checkbox>
+                <el-checkbox label="关闭邮件通知功能"></el-checkbox>
             </el-checkbox-group>
         </div>
 
 
         <div>
-            <el-button size="mini" round type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-            <el-button size="mini" round @click="resetForm('ruleForm')">重置</el-button>
+            <el-button size="mini" round type="primary" @click="submitForm('ruleForm')" class="greenBtn">更新</el-button>
+            <el-button size="mini" round @click="resetForm('ruleForm')" class="cancelBtn">取消</el-button>
         </div>
     </el-form>
 </template>
@@ -136,6 +135,10 @@
             border-bottom:1px solid #eee;
             margin-bottom:0.5rem;
         }
+    }
+
+    .elCheckbox{
+        margin-bottom: 2rem;
     }
 
 </style>

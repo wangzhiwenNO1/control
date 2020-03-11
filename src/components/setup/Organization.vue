@@ -47,7 +47,7 @@
                         <div class="grid-content bg-purple">
                             <div class="title">
                                 <div>资质证书</div>
-                                <div><el-button size="mini" type="text">上传证书</el-button></div>
+                                <div><el-button size="mini" type="text"  icon="el-icon-circle-plus-outline">请上传证书</el-button></div>
                             </div>
                             <div class="zhengshu">
                                 <div>请上传证书</div>
@@ -123,6 +123,8 @@
                 line-height: 1.88rem;
                 font-size: 0.75rem;
                 padding: 0;
+                border: none;
+                color:#FFFFFF;
             }
         }
     }
@@ -136,6 +138,7 @@
             width:8rem;
             background:rgba(255,255,255,1);
             padding-left:0.5rem;
+            min-height: calc(100vh - 20rem);
 
             &>div{
                 height:2.75rem;

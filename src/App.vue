@@ -338,12 +338,22 @@ export default {
   }
 }
   .greenBtn{
-    background:linear-gradient(90deg,rgba(44,100,255,1),rgba(52,171,255,1));
-    color:#ffffff;
-    width:5.63rem;
+    background:linear-gradient(90deg,rgba(44,100,255,1),rgba(52,171,255,1)) !important;;
+    color:#ffffff !important;;
+    width:6.88rem;
   }
   .greenBg{
-    background:linear-gradient(90deg,rgba(44,100,255,1),rgba(52,171,255,1));
-    color:#ffffff;
+    background:linear-gradient(90deg,rgba(44,100,255,1),rgba(52,171,255,1)) !important;
+    color:#ffffff !important;;
+  }
+  .greenBor{
+    border:1px solid rgba(44,100,255,1) !important;
+    color:rgba(44,100,255,1) !important;
+    width:6.88rem;
+  }
+  .cancelBtn{
+    width:6.88rem;
+    background:linear-gradient(90deg,rgba(255,105,52,1),rgba(255,52,105,1)) !important;
+    color:#ffffff !important;
   }
 </style>

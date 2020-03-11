@@ -9,7 +9,7 @@
                         <div class="subTitle">实验室经理</div>
                     </div>
                     <div class="infoBox">
-                        <div class="editBox">
+                        <div class="editBox" @clack="editPerson">
                             <div>编辑</div>
                         </div>
                         <div><span>联系邮箱：</span>123@tianji.com</div>

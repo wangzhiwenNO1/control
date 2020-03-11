@@ -79,7 +79,7 @@
           <div class="itemBox leftThree">
             <div class="title">
               <div>技术资料</div>
-              <el-button type="primary" size="mini" icon="el-icon-search">搜索</el-button>
+              <el-button type="text" size="mini" icon="el-icon-circle-plus-outline">添加新文件</el-button>
             </div>
             <ul class="fileBox">
               <li>
@@ -92,7 +92,7 @@
           <div class="itemBox leftFour">
             <div class="title">
               <div>采购文件</div>
-              <el-button type="primary" size="mini" icon="el-icon-search">搜索</el-button>
+              <el-button type="text" size="mini" icon="el-icon-circle-plus-outline">添加新文件</el-button>
             </div>
             <ul class="fileBox">
               <li>

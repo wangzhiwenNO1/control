@@ -38,9 +38,9 @@
         </el-form-item>
 
 
-        <el-form-item>
-            <el-button size="mini" round type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-            <el-button size="mini" round @click="resetForm('ruleForm')">重置</el-button>
+        <el-form-item class="itemBtn">
+            <el-button size="mini" round type="primary" @click="submitForm('ruleForm')" class="greenBtn">更新</el-button>
+            <el-button size="mini" round @click="resetForm('ruleForm')" class="cancelBtn">取消</el-button>
         </el-form-item>
     </el-form>
 </template>
@@ -133,11 +133,17 @@
             display: flex;
             align-items: center;
             margin-bottom:0.5rem;
+            border-bottom: 1px solid #eeeeee;
+            padding-bottom: 0.5rem;
 
             .el-avatar{
                 margin-right: 1.5rem;
             }
         }
+    }
+
+    .itemBtn{
+        margin-top: 2rem;
     }
 
 </style>

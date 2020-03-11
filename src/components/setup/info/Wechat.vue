@@ -8,16 +8,10 @@
         <div class="formItem">已绑定微信号：SXwds53</div>
         <div class="binding">
             <el-button size="mini" round type="text" icon="el-icon-circle-plus-outline">添加绑定</el-button>
-            <el-button size="mini" round>解除绑定</el-button>
+            <el-button size="mini" round class="liftBtn">解除绑定</el-button>
         </div>
 
-        <el-form-item label="选择通知方式：">
-            <div class="checkbox">
-                <el-checkbox >邮件通知</el-checkbox>
-                <el-checkbox>短信通知</el-checkbox>
-            </div>
-
-        </el-form-item>
+        
         <div class="groupBox">
             <el-checkbox-group v-model="checkList" class="checkbox">
                 <el-checkbox label="订单状态更新时通知我"></el-checkbox>
@@ -145,6 +139,13 @@
         }
         .binding{
             margin-top:1rem;
+            border-bottom: 1px solid #eeeeee;
+            padding-bottom: 1rem;
+
+            .liftBtn{
+                border:1px solid rgba(44, 100, 255, 1);
+                color:rgba(44, 100, 255, 1);
+            }
         }
         .question{
             font-size:0.88rem;
@@ -155,6 +156,7 @@
 
         .groupBox{
             margin-top:2rem;
+            margin-bottom: 2rem;
         }
     }
 
