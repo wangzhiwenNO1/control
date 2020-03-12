@@ -16,10 +16,39 @@
         <el-col :span="8">
           <div class="grid-content bg-purple topRight">
             <div class="alarm">
-              <i class="icon "></i>
+              <i class="icon"></i>
               <span>(5)</span>
             </div>
             <div class="avatar"></div>
+            <div class="triangle"></div>
+            <ul>
+              <li>令狐冲</li>
+              <li>
+                <i class="el-icon-share"></i>
+                <span>组织信息</span>
+              </li>
+              <li>
+                <i class="el-icon-delete"></i>
+                <span>个人信息</span>
+              </li>
+              <li>
+                <i class="el-icon-s-tools"></i>
+                <span>账号设置</span>
+              </li>
+              <li>
+                <i class="el-icon-download"></i>
+                <span>获取帮助</span>
+              </li>
+              <li>
+                <i class="el-icon-download"></i>
+                <span>投诉建议</span>
+              </li>
+              <li>
+                <i class="el-icon-download"></i>
+                <span>退出</span>
+              </li>
+              
+            </ul>
           </div>
         </el-col>
       </el-row>
@@ -29,11 +58,11 @@
             <div class="icon gzt"></div>
             <div>工作台</div>
           </div>
-          <div class="tabItem " :class="type==2?'active':''" @click="jump(2)">
+          <div class="tabItem" :class="type==2?'active':''" @click="jump(2)">
             <div class="icon ddgl"></div>
             <div>订单管理</div>
           </div>
-          <div class="tabItem " :class="type==3?'active':''" @click="jump(3)">
+          <div class="tabItem" :class="type==3?'active':''" @click="jump(3)">
             <div class="icon sbgl"></div>
             <div>设备管理</div>
           </div>
@@ -53,7 +82,7 @@
 
         <!-- right -->
         <div class="tabRight">
-          <div >团队成员</div>
+          <div>团队成员</div>
           <div>
             <img src="#" alt />
           </div>
@@ -72,7 +101,6 @@
         <div>Copyright©2019实验室帮 | 沪ICP备1700294号-3</div>
       </div>
       <div>
-
         <el-breadcrumb separator="|">
           <el-breadcrumb-item>服务协议</el-breadcrumb-item>
           <el-breadcrumb-item>隐私协议</el-breadcrumb-item>
@@ -84,55 +112,51 @@
 </template>
 
 <script>
-
-
 export default {
-  name: 'app',
-    components:{
-
-    },
-  data(){
+  name: "app",
+  components: {},
+  data() {
     return {
-      type:1
-    }
+      type: 1
+    };
   },
-  methods:{
-    jump(type){
-      this.type=type;
-      let url="";
+  methods: {
+    jump(type) {
+      this.type = type;
+      let url = "";
       switch (type) {
         case 1:
-          url="/workbench";
-              break;
+          url = "/workbench";
+          break;
         case 2:
-          url="/order";
+          url = "/order";
           break;
         case 3:
-          url="/equipment";
+          url = "/equipment";
           break;
         case 4:
-          url="/market";
+          url = "/market";
           break;
         case 5:
-          url="/laboratory";
+          url = "/laboratory";
           break;
         case 6:
-          url="/setup/organization";
+          url = "/setup/organization";
           break;
         default:
           break;
       }
 
       this.$router.push({
-        path: url,
-      })
+        path: url
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="less">
-@import  './assets/css/reset.css';
+@import "./assets/css/reset.css";
 
 .TopBox {
   height: 3.44rem;
@@ -143,7 +167,7 @@ export default {
   color: #fff;
   box-sizing: border-box;
 }
-.TopsearchBox{
+.TopsearchBox {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -158,6 +182,56 @@ export default {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  position: relative;
+
+  .triangle {
+    width: 0;
+    height: 0;
+    border-left: 0.5rem solid transparent;
+    border-right: 0.5rem solid transparent;
+    border-bottom: 0.8rem solid #f3f4f9;
+    position: absolute;
+    top: 1.8rem;
+    right: 0.5rem;
+    z-index: 9;
+  }
+
+  & > ul {
+    position: absolute;
+    width: 7.81rem;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0rem 0rem 1rem 0rem rgba(0, 0, 0, 0.37);
+    border-radius: 0rem;
+    top: 2.5rem;
+    right:0;
+    color: #333333;
+    z-index: 8;
+
+    & > li {
+      width: 100%;
+      height: 2.5rem;
+      box-sizing: border-box;
+      border-radius: 0rem;
+      line-height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #f2f4fa;
+
+      i {
+        display: block;
+        margin-right: 0.3rem;
+      }
+
+    }
+    & > li:hover {
+      background: rgba(229, 229, 229, 1);
+    }
+
+    & > li:first-child {
+      background: #f3f4f9;
+    }
+  }
 
   .avatar {
     width: 2rem;
@@ -166,12 +240,12 @@ export default {
     background: pink;
     margin-left: 2rem;
   }
-  .alarm{
+  .alarm {
     display: flex;
     align-items: center;
-    i{
+    i {
       display: inline-block;
-      width:1rem;
+      width: 1rem;
       height: 1rem;
       background: url("./assets/imgs/icon-tongzhi.png");
       background-size: contain;
@@ -182,7 +256,6 @@ export default {
   .icon {
     width: 1.25rem;
     height: 1.25rem;
-
   }
 }
 .tabBox {
@@ -204,66 +277,64 @@ export default {
       height: 2.5rem;
       // border-bottom: 1px solid rgba(44, 100, 255, 1);
       line-height: 2.5rem;
-      margin-right:1rem;
+      margin-right: 1rem;
       box-sizing: border-box;
       div {
         font-size: 1rem;
       }
 
-      .gzt{
+      .gzt {
         background: url("./assets/imgs/btn-gzt1.png") no-repeat;
         background-size: cover;
       }
-      .ddgl{
+      .ddgl {
         background: url("./assets/imgs/btn-guanli1.png") no-repeat;
         background-size: contain;
       }
-      .sbgl{
+      .sbgl {
         background: url("./assets/imgs/btn-shebei1.png") no-repeat;
         background-size: contain;
       }
-      .gysgl{
+      .gysgl {
         background: url("./assets/imgs/btn-shichang1.png") no-repeat;
         background-size: contain;
       }
-      .zxsc{
+      .zxsc {
         background: url("./assets/imgs/btn-shichang1.png") no-repeat;
         background-size: contain;
       }
-      .sz{
+      .sz {
         background: url("./assets/imgs/btn-shezhi1.png") no-repeat;
         background-size: contain;
       }
 
-
       &.active {
         border-bottom: 1px solid rgba(44, 100, 255, 1);
 
-        .gzt{
+        .gzt {
           background: url("./assets/imgs/btn-gzt2.png") no-repeat;
           background-size: cover;
         }
-        .ddgl{
+        .ddgl {
           background: url("./assets/imgs/btn-guanli2.png") no-repeat;
           background-size: contain;
         }
-        .sbgl{
+        .sbgl {
           background: url("./assets/imgs/btn-shebei2.png") no-repeat;
           background-size: contain;
         }
-        .gysgl{
+        .gysgl {
           background: url("./assets/imgs/btn-shichang2.png") no-repeat;
           background-size: contain;
         }
-        .zxsc{
+        .zxsc {
           background: url("./assets/imgs/btn-shichang2.png") no-repeat;
           background-size: contain;
         }
-        .sz{
+        .sz {
           background: url("./assets/imgs/btn-shezhi2.png") no-repeat;
           background-size: contain;
         }
-
       }
     }
     .icon {
@@ -273,20 +344,20 @@ export default {
   .tabRight {
     display: flex;
     align-items: center;
-    font-size:0.75rem;
-    color:#999999;
+    font-size: 0.75rem;
+    color: #999999;
 
-    img{
+    img {
       display: block;
-      width:1.25rem;
+      width: 1.25rem;
       height: 1.25rem;
       background: pink;
       border-radius: 50%;
     }
-    div{
-      margin-left:0.3rem;
+    div {
+      margin-left: 0.3rem;
     }
-    .icon{
+    .icon {
       width: 1.25rem;
       height: 1.25rem;
       background: url("./assets/imgs/Btn-tjtd.png") no-repeat;
@@ -298,62 +369,72 @@ export default {
     width: 1.25rem;
     height: 1.25rem;
   }
-
-
 }
 
-.viewBox{
+.viewBox {
   min-height: calc(100vh - 9.6rem);
-  background: #F2F4FA;
+  background: #f2f4fa;
 }
 
-.footer{
+.footer {
   height: 3.65rem;
-  background: #E0E4EF;
-  display:flex;
+  background: #e0e4ef;
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  padding:0 1rem;
-  box-sizing:border-box;
+  padding: 0 1rem;
+  box-sizing: border-box;
   color: #999999;
-  font-size:0.75rem;
+  font-size: 0.75rem;
 
-  .footerLeft{
+  .footerLeft {
     display: flex;
     align-items: center;
   }
 
-  .logoBox{
-    width:7.06rem;
-    height:1.75rem;
-    background: #EEEEEE;
+  .logoBox {
+    width: 7.06rem;
+    height: 1.75rem;
+    background: #eeeeee;
     margin-right: 0.5rem;
   }
 
-  div{
-    font-size:0.75rem;
+  div {
+    font-size: 0.75rem;
   }
-  .el-breadcrumb{
-    font-size:0.75rem;
+  .el-breadcrumb {
+    font-size: 0.75rem;
   }
 }
-  .greenBtn{
-    background:linear-gradient(90deg,rgba(44,100,255,1),rgba(52,171,255,1)) !important;;
-    color:#ffffff !important;;
-    width:6.88rem;
-  }
-  .greenBg{
-    background:linear-gradient(90deg,rgba(44,100,255,1),rgba(52,171,255,1)) !important;
-    color:#ffffff !important;;
-  }
-  .greenBor{
-    border:1px solid rgba(44,100,255,1) !important;
-    color:rgba(44,100,255,1) !important;
-    width:6.88rem;
-  }
-  .cancelBtn{
-    width:6.88rem;
-    background:linear-gradient(90deg,rgba(255,105,52,1),rgba(255,52,105,1)) !important;
-    color:#ffffff !important;
-  }
+.greenBtn {
+  background: linear-gradient(
+    90deg,
+    rgba(44, 100, 255, 1),
+    rgba(52, 171, 255, 1)
+  ) !important;
+  color: #ffffff !important;
+  width: 6.88rem;
+}
+.greenBg {
+  background: linear-gradient(
+    90deg,
+    rgba(44, 100, 255, 1),
+    rgba(52, 171, 255, 1)
+  ) !important;
+  color: #ffffff !important;
+}
+.greenBor {
+  border: 1px solid rgba(44, 100, 255, 1) !important;
+  color: rgba(44, 100, 255, 1) !important;
+  width: 6.88rem;
+}
+.cancelBtn {
+  width: 6.88rem;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 105, 52, 1),
+    rgba(255, 52, 105, 1)
+  ) !important;
+  color: #ffffff !important;
+}
 </style>

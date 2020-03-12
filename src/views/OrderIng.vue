@@ -47,7 +47,25 @@
             <div class="orderNum">#45972</div>
             <div class="orderName">
               <div>T2019083003 Demo 003 检测项目</div>
-              <i class="icon"></i>
+              <i class="el-icon-more moreBtn">
+                <div class="triangle"></div>
+                <ul>
+                  <li>指定负责人</li>
+                  <li>
+                    <i class="el-icon-edit-outline"></i>
+                    <span>编辑订单</span>
+                  </li>
+                  <li>
+                    <i class="el-icon-delete"></i>
+                    <span>删除订单</span>
+                  </li>
+                  <li>
+                    <i class="el-icon-download"></i>
+                    <span>下载订单</span>
+                  </li>
+                  <li>确定</li>
+                </ul>
+              </i>
             </div>
             <ul class="ulBoxs">
               <li>
@@ -59,12 +77,46 @@
                 <div class="conscientious">
                   <div class="avatar"></div>
                   <div>斩无极</div>
+                  <div class="triangle"></div>
+                  <ul>
+                    <li>指定负责人</li>
+                    <li>
+                      <el-avatar :size="20"></el-avatar>
+                      <span>令狐冲</span>
+                    </li>
+                    <li>
+                      <el-avatar :size="20"></el-avatar>
+                      <span>令狐冲</span>
+                    </li>
+                    <li>
+                      <el-avatar :size="20"></el-avatar>
+                      <span>令狐冲</span>
+                    </li>
+                    <li>确定</li>
+                  </ul>
                 </div>
               </li>
               <li>
                 <div>优先级</div>
                 <div class="priority">
-                  <el-dropdown @command="handleCommand" trigger="click">
+                  <i></i>
+                  <div>中</div>
+                  <div class="triangle"></div>
+                  <ul>
+                    <li>指定优先级</li>
+                    <li>
+                      <i class="redIcon"></i>
+                      <span>高</span>
+                    </li>
+                    <li>
+                      <i class="yellowIcon"></i>中
+                    </li>
+                    <li>
+                      <i class="purpleIcon"></i>低
+                    </li>
+                    <li>确定</li>
+                  </ul>
+                  <!-- <el-dropdown @command="handleCommand" trigger="click">
                     <span class="el-dropdown-link">
                       <i class="el-icon-arrow-down"></i>中
                     </span>
@@ -81,18 +133,60 @@
                       </el-dropdown-item>
                       <el-dropdown-item command="e" divided>确定</el-dropdown-item>
                     </el-dropdown-menu>
-                  </el-dropdown>
+                  </el-dropdown>-->
                 </div>
               </li>
               <li>
-                <div>写作人员</div>
-                <div>
+                <div>协作人员</div>
+                <div class="cooperation">
                   <div class="avatarBox">
                     <div class="avatar"></div>
                     <div class="avatar"></div>
                   </div>
                   <div>3+</div>
                   <div class="icon"></div>
+
+                  <ul v-if="false">
+                    <div class="triangle"></div>
+                    <li>协作人员</li>
+                    <li class="cooperationTwoBox">
+                      <ul class="cooperationTwo">
+                        <li>
+                          <el-avatar :size="20"></el-avatar>
+                          <span>令狐冲</span>
+                          <i class="el-icon-remove-outline"></i>
+                        </li>
+                        <li>
+                          <el-avatar :size="20"></el-avatar>
+                          <span>令狐冲</span>
+                          <i class="el-icon-circle-plus-outline"></i>
+                        </li>
+                        <li>
+                          <el-avatar :size="20"></el-avatar>
+                          <span>令狐冲</span>
+                          <i class="el-icon-remove-outline"></i>
+                        </li>
+                        <li>
+                          <div>保存</div>
+                          <div>取消</div>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <el-avatar :size="20"></el-avatar>
+                      <span>令狐冲</span>
+                    </li>
+                    <li>
+                      <el-avatar :size="20"></el-avatar>
+                      <span>令狐冲</span>
+                    </li>
+                    <li>
+                      <el-avatar :size="20"></el-avatar>
+                      <span>令狐冲</span>
+                    </li>
+
+                    <li>编辑</li>
+                  </ul>
                 </div>
               </li>
             </ul>
@@ -279,7 +373,181 @@ export default {
 };
 </script>
 <style lang="less">
-.priority {
+.priority,
+.conscientious,
+.cooperation,
+.moreBtn {
+  position: relative;
+
+  .triangle {
+    width: 0;
+    height: 0;
+    border-left: 0.5rem solid transparent;
+    border-right: 0.5rem solid transparent;
+    border-bottom: 0.8rem solid #f3f4f9;
+    position: absolute;
+    top: 1.7rem;
+    z-index: 9;
+  }
+
+  & > ul {
+    position: absolute;
+    width: 7.81rem;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0rem 0rem 1rem 0rem rgba(0, 0, 0, 0.37);
+    border-radius: 0rem;
+    top: 2.5rem;
+    left: -5rem;
+    color: #333333;
+    z-index: 8;
+
+    & > li {
+      width: 100%;
+      height: 2.5rem;
+      box-sizing: border-box;
+      border-radius: 0rem;
+      line-height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #f2f4fa;
+
+      i {
+        display: block;
+        margin-right: 0.3rem;
+      }
+
+      .redIcon {
+        background: #f12c0b;
+        width: 0.6rem;
+        border-radius: 50%;
+        height: 0.6rem;
+      }
+
+      .yellowIcon {
+        background: #fda23f;
+        width: 0.6rem;
+        border-radius: 50%;
+        height: 0.6rem;
+      }
+
+      .purpleIcon {
+        background: #c37cff;
+        width: 0.6rem;
+        border-radius: 50%;
+        height: 0.6rem;
+      }
+    }
+    & > li:hover {
+      background: rgba(229, 229, 229, 1);
+    }
+
+    & > li:first-child {
+      background: #f3f4f9;
+    }
+
+    & > li:last-child {
+      border-top: 1px solid #2c64ff;
+      border-bottom: none;
+      color: #2c64ff;
+    }
+  }
+}
+.moreBtn{
+  ul{
+    li:hover{
+      color:#2C64FF;
+    }
+  }
+}
+.conscientious {
+  ul {
+    top: 3rem;
+
+    li {
+      color: #333333;
+    }
+
+    & > li:hover {
+      color: #2c64ff;
+    }
+  }
+  .triangle {
+    top: 2.3rem;
+  }
+  .el-avatar {
+    margin-right: 0.3rem;
+  }
+}
+
+.cooperation {
+  .triangle {
+    left: 0rem;
+  }
+  .el-avatar {
+    margin-right: 0.3rem;
+  }
+  & > ul {
+    & > li:hover {
+      color: #2c64ff;
+    }
+  }
+
+  .cooperationTwoBox {
+    height: 0;
+    position: relative;
+
+    &:hover {
+      background: #ffffff;
+      color: #333;
+    }
+  }
+
+  .cooperationTwo {
+    position: absolute;
+    width: 10.31rem;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0rem 0rem 1rem 0rem rgba(0, 0, 0, 0.37);
+    border-radius: 0rem;
+    left: 8rem;
+    top: 0;
+
+    & > li {
+      display: flex;
+      height: 2.5rem;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #f2f4fa;
+
+      span {
+        margin: 0 0.5rem 0 0.3rem;
+      }
+
+      .el-icon-remove-outline,
+      .el-icon-circle-plus-outline {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+
+      & > div {
+        margin: 0 0.3rem;
+      }
+      & > div:first-child {
+        color: #2c64ff;
+      }
+      & > div:last-child {
+        color: #f12c0b;
+      }
+
+      &:hover {
+        background: #e5e5e5;
+
+        i {
+          color: #2c64ff;
+        }
+      }
+    }
+  }
 }
 .priorityTitle {
   background: pink;
@@ -379,7 +647,7 @@ export default {
     justify-content: space-between;
     margin-top: 1rem;
 
-    li {
+    & > li {
       padding: 0.25rem;
       border-right: 1px solid #eeeeee;
       flex: 1;
@@ -473,30 +741,30 @@ export default {
         font-size: 0.75rem;
         color: #999999;
       }
-      .orderName {
-        display: flex;
-        color: #333333;
-        font-size: 0.88rem;
-        align-items: center;
-        justify-content: space-between;
-
-        .icon {
-          width: 1rem;
-          height: 1rem;
-          display: block;
-          background: pink;
-        }
-
-        .price {
-          font-size: 0.75rem;
-          color: #999999;
-        }
-      }
     }
 
     .leftThree,
     .leftFour {
     }
+  }
+}
+.orderName {
+  display: flex;
+  color: #333333;
+  font-size: 0.88rem;
+  align-items: center;
+  justify-content: space-between;
+
+  .icon {
+    width: 1rem;
+    height: 1rem;
+    display: block;
+    background: pink;
+  }
+
+  .price {
+    font-size: 0.75rem;
+    color: #999999;
   }
 }
 .leftTwo {
