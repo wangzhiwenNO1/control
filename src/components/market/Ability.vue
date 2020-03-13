@@ -18,7 +18,8 @@
             <div class="machineImg">
               <el-image src="#" fit="fill"></el-image>
               <div>TE-001 湿湿度试验箱</div>
-              <el-button round size="mini">取消关联</el-button>
+              <div class="company">上海天吉检测技术服务有限公司</div>
+              <!-- <el-button round size="mini">取消关联</el-button> -->
             </div>
             <div class="machineInfo">
               <div class="title">适用检测项目</div>
@@ -73,7 +74,7 @@
           <div class="productBox">
             <div class="productImg">
               <el-image src="#"></el-image>
-              <el-button size="mini" round>取消关联</el-button>
+              <el-button size="mini" round class="cancelBtn">取消关联</el-button>
             </div>
             <div class="product">
               <div>
@@ -148,6 +149,7 @@ export default {
 .AbilityBox {
   width: 100%;
   box-sizing: border-box;
+  padding:1rem;
 
   .screenBox {
     .search {
@@ -205,6 +207,10 @@ export default {
         border: 1px solid rgba(241, 44, 11, 1);
         text-align: center;
         color: rgba(241, 44, 11, 1);
+      }
+
+      .company{
+        color:#999;
       }
     }
 

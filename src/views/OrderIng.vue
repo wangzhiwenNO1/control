@@ -9,7 +9,7 @@
             <div class="orderName">
               <div>T2019083003 Demo 003 检测项目</div>
               <div class="price">￥3000</div>
-              <i class="icon"></i>
+              <i class="el-icon-more"></i>
             </div>
             <ul class="ulBoxs">
               <li>
@@ -48,9 +48,9 @@
             <div class="orderName">
               <div>T2019083003 Demo 003 检测项目</div>
               <i class="el-icon-more moreBtn">
-                <div class="triangle"></div>
-                <ul>
-                  <li>指定负责人</li>
+                <div class="triangle" v-if="operating"></div>
+                <ul v-if="operating">
+                  <li>操作</li>
                   <li>
                     <i class="el-icon-edit-outline"></i>
                     <span>编辑订单</span>
@@ -77,8 +77,8 @@
                 <div class="conscientious">
                   <div class="avatar"></div>
                   <div>斩无极</div>
-                  <div class="triangle"></div>
-                  <ul>
+                  <div class="triangle" v-if="principal"></div>
+                  <ul v-if="principal">
                     <li>指定负责人</li>
                     <li>
                       <el-avatar :size="20"></el-avatar>
@@ -101,8 +101,8 @@
                 <div class="priority">
                   <i></i>
                   <div>中</div>
-                  <div class="triangle"></div>
-                  <ul>
+                  <div class="triangle" v-if="priority"></div>
+                  <ul v-if="priority">
                     <li>指定优先级</li>
                     <li>
                       <i class="redIcon"></i>
@@ -146,7 +146,7 @@
                   <div>3+</div>
                   <div class="icon"></div>
 
-                  <ul v-if="false">
+                  <ul v-if="teamwork">
                     <div class="triangle"></div>
                     <li>协作人员</li>
                     <li class="cooperationTwoBox">
@@ -192,7 +192,14 @@
             </ul>
           </div>
           <div class="itemBox middleOne">
-            <div class="title">选择服务方</div>
+            <div class="title">
+              <div>选择服务方</div>
+              <div>
+                <el-button size="mini" type="text" icon="el-icon-circle-plus-outline">添加服务方</el-button>
+                <el-button size="mini" type="text" icon="el-icon-circle-plus-outline">价格比较</el-button>
+                <span>2/5</span>
+              </div>
+            </div>
             <ul class="ulBoxs">
               <li>
                 <div>
@@ -200,7 +207,11 @@
                   <div>上海少林检测技术服务有限公司</div>
                 </div>
                 <div>￥3200</div>
-                <div class="infoBtn">详情</div>
+                <div class="btnBox">
+                  <div class="infoBtn">详情</div>
+                  <div class="ratifyBtn">批准</div>
+                  <div class="refuseBtn">拒绝</div>
+                </div>
               </li>
             </ul>
           </div>
@@ -296,6 +307,10 @@ export default {
   data() {
     return {
       activeName: 1,
+      principal: false, //负责人
+      priority: false, //优先级
+      teamwork: false, //协作
+      operating: false, //操作
       tableData: [
         {
           id: "1",
@@ -453,10 +468,10 @@ export default {
     }
   }
 }
-.moreBtn{
-  ul{
-    li:hover{
-      color:#2C64FF;
+.moreBtn {
+  ul {
+    li:hover {
+      color: #2c64ff;
     }
   }
 }
@@ -664,10 +679,14 @@ export default {
       & > div:first-child {
         margin-bottom: 0.5rem;
       }
+      &>div:last-child{
+        color:#333333;
+      }
 
       .conscientious {
         font-size: 0.75rem;
-        flex-direction: column;
+        // flex-direction: column;
+        
         & > div {
           font-size: 0.75rem;
         }
@@ -737,6 +756,7 @@ export default {
 
   .leftBox {
     .leftOne {
+      border-left: 3px solid #83E622;
       .orderNum {
         font-size: 0.75rem;
         color: #999999;
@@ -796,6 +816,28 @@ export default {
   .middleOne {
     background: #ffffff;
 
+    .title{
+      span{
+        color:#999999;
+        font-size: 0.75rem;
+        margin-left: 0.3rem;
+      }
+
+      .el-button{
+        font-size: 1rem;
+        color:#2C64FF;
+        span{
+          color:#2C64FF;
+        }
+      }
+    }
+
+    .btnBox{
+      div{
+        margin:0 0.3rem;
+      }
+    }
+
     .ulBoxs {
       li {
         flex-direction: row;
@@ -808,6 +850,12 @@ export default {
         }
         .infoBtn {
           color: #2c64ff;
+        }
+        .ratifyBtn{
+          color:#3DC600;
+        }
+        .refuseBtn{
+          color: #F12C0B;
         }
       }
     }

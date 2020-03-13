@@ -52,12 +52,13 @@ const routes = [
         path: '/market',/*供应商管理*/
         name: 'market',
         component: () => import(/* webpackChunkName: "about" */ '../views/Market.vue'),
-        // children:[
-        //   {
-        //     path:'service',
-        //     component:() => import(/* webpackChunkName: "about" */ '../components/market/Service.vue'),
-        //   }
-        // ]
+        
+    },
+    {
+        path: '/ability',/*供应商管理*/
+        name: 'ability',
+        component: () => import(/* webpackChunkName: "about" */ '../components/market/Ability'),
+        
     },
     {
         path: '/demand',/*申请表*/

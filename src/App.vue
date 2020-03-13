@@ -15,13 +15,48 @@
         </el-col>
         <el-col :span="8">
           <div class="grid-content bg-purple topRight">
-            <div class="alarm">
-              <i class="icon"></i>
-              <span>(5)</span>
+            <div class="alarmBox">
+              <div class="alarm">
+                <i class="icon"></i>
+                <span>(5)</span>
+              </div>
+              <div class="noteBox">
+                <div class="triangle triangleNote"></div>
+                <div class="title">
+                  <i class="el-icon-bell"></i>
+                  <p>
+                    通知记录
+                    <span>(5)</span>
+                  </p>
+                  <i class="el-icon-close"></i>
+                </div>
+                <ul>
+                  <li v-for="item in 3" :key="item">
+                    <el-avatar :size="30"></el-avatar>
+                    <div>
+                      <div class="nameBox">
+                        <span>您有新的订单需要报价{{item}}</span>
+                        <i class="el-icon-more"></i>
+                        <div class="editBox" v-if="item==1">
+                          <div class="triangle triangleEdit"></div>
+                          <div class="editDel">
+                            <i class="el-icon-delete"></i>删除改通知
+                          </div>
+                          <div class="editClose">
+                            <i class="icon"></i>关闭此类通知
+                          </div>
+                        </div>
+                      </div>
+                      <div class="time">2019年12月12日 10:11</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
+
             <div class="avatar"></div>
-            <div class="triangle"></div>
-            <ul>
+            <div class="triangle" v-if="false"></div>
+            <ul v-if="false">
               <li>令狐冲</li>
               <li>
                 <i class="el-icon-share"></i>
@@ -47,7 +82,6 @@
                 <i class="el-icon-download"></i>
                 <span>退出</span>
               </li>
-              
             </ul>
           </div>
         </el-col>
@@ -135,7 +169,7 @@ export default {
           url = "/equipment";
           break;
         case 4:
-          url = "/market";
+          url = "/ability";
           break;
         case 5:
           url = "/laboratory";
@@ -203,7 +237,7 @@ export default {
     box-shadow: 0rem 0rem 1rem 0rem rgba(0, 0, 0, 0.37);
     border-radius: 0rem;
     top: 2.5rem;
-    right:0;
+    right: 0;
     color: #333333;
     z-index: 8;
 
@@ -222,7 +256,6 @@ export default {
         display: block;
         margin-right: 0.3rem;
       }
-
     }
     & > li:hover {
       background: rgba(229, 229, 229, 1);
@@ -239,6 +272,135 @@ export default {
     border-radius: 50%;
     background: pink;
     margin-left: 2rem;
+  }
+  .alarmBox {
+    position: relative;
+    .noteBox {
+      position: absolute;
+      width: 25.63rem;
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0rem 0rem 1rem 0rem rgba(0, 0, 0, 0.37);
+      border-radius: 0rem;
+      top: 2rem;
+      left: -23rem;
+      z-index: 9;
+      color: #333333;
+
+      .triangleNote {
+        top: -0.8rem;
+        right: 1.5rem;
+      }
+
+      .title {
+        background: #f3f4f9;
+        height: 3.5rem;
+        font-size: 1.5rem;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p {
+          font-size: 1.5rem;
+          margin-left: 0.5rem;
+        }
+
+        span {
+          font-size: 0.88rem;
+          color: rgba(51, 51, 51, 1);
+        }
+        .el-icon-close {
+          position: absolute;
+          top: 1.2rem;
+          right: 1rem;
+          color: #a4a8a8;
+          font-size: 1rem;
+        }
+      }
+
+      & > ul {
+        padding: 1rem;
+        li {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 23.13rem;
+          height: 4.06rem;
+          border-radius: 0.3rem;
+          padding: 0 1rem;
+          box-sizing: border-box;
+          margin: 0.5rem 0;
+          border:1px solid rgba(221, 224, 233, 1);
+
+          &:first-child {
+            background: rgba(215, 215, 215, 1);
+          }
+          & > div {
+            flex: 1;
+          }
+          .el-avatar {
+            flex-shrink: 0;
+            margin-right: 0.8rem;
+          }
+          .el-icon-more {
+            color: #999999;
+            font-size: 0.88rem;
+          }
+
+          .nameBox {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            line-height: 1.5rem;
+          }
+
+          .editBox {
+            position: absolute;
+            top: 1.3rem;
+            right: -0.3rem;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0rem 0rem 1rem 0rem rgba(0, 0, 0, 0.37);
+            border-radius: 0.2rem;
+            z-index: 9;
+
+            .triangleEdit {
+              top: -0.8rem;
+              right: 0.3rem;
+              border-bottom: 0.8rem solid #ffffff;
+            }
+            .editDel,
+            .editClose {
+              height: 2rem;
+              line-height: 2rem;
+              padding: 0 1rem;
+
+              i {
+                margin-right: 0.3rem;
+              }
+
+              .icon {
+                display: inline-block;
+                width: 0.875rem;
+                height: 0.875rem;
+                background: pink;
+              }
+
+              &:hover {
+                color: #2c64ff;
+                background: #d7d7d7;
+              }
+            }
+            .editDel {
+              border-bottom: 1px solid #eeeeee;
+            }
+          }
+
+          .time {
+            color: #999999;
+            font-size: 0.75rem;
+          }
+        }
+      }
+    }
   }
   .alarm {
     display: flex;
