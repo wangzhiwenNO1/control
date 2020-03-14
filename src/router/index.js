@@ -55,11 +55,17 @@ const routes = [
         
     },
     {
-        path: '/ability',/*供应商管理*/
+        path: '/suppliers',/*订单*/
+        name: 'suppliers',
+        component: () => import(/* webpackChunkName: "about" */ '../views/Suppliers.vue')
+    },
+    {
+        path: '/ability',/*设备管理*/
         name: 'ability',
         component: () => import(/* webpackChunkName: "about" */ '../components/market/Ability'),
         
     },
+   
     {
         path: '/demand',/*申请表*/
         name: 'demand',

@@ -15,7 +15,7 @@
       <div class="el-col">
         <el-card class="box-card" shadow="hover">
           <div class="machineItem">
-            <div class="machineImg">
+            <div class="machineImg" @click="goToEquipment">
               <el-image src="#" fit="fill"></el-image>
               <div>TE-001 湿湿度试验箱</div>
               <div class="company">上海天吉检测技术服务有限公司</div>
@@ -52,9 +52,13 @@
         </el-card>
       </div>
       <div class="el-col">
-        <div class=" itemBox">
+        <div class="itemBox">
           <div class="title">选择需求项目</div>
           <div class="tagBox">
+            <div class="items">
+              <el-avatar :size="30" src="#"></el-avatar>
+              <div>上海少林检测技术服务有限公司</div>
+            </div>
             <el-tag
               :key="tag"
               v-for="tag in dynamicTags"
@@ -64,9 +68,8 @@
             >{{tag}}</el-tag>
           </div>
           <div class="btnRows">
-             <el-button round class="greenBtn" size="mini">提交需求</el-button>
+            <el-button round class="greenBtn" size="mini" @click="goToDemand">提交需求</el-button>
             <el-button round class="cancelBtn" size="mini">取消需求</el-button>
-           
           </div>
         </div>
         <div class="itemBox itemInfo">
@@ -105,7 +108,7 @@
   </div>
 </template>
 <script>
-  import AddLink from "../dialog/AddLink";
+import AddLink from "../dialog/AddLink";
 export default {
   data() {
     return {
@@ -135,12 +138,22 @@ export default {
       value: ""
     };
   },
-  components:{
+  components: {
     AddLink
   },
   methods: {
     handleClose(tag) {
       this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+    },
+    goToDemand(){
+      this.$router.push({
+        path: "/demand"
+      });
+    },
+    goToEquipment(){
+      this.$router.push({
+        path: "/equipment"
+      });
     }
   }
 };
@@ -149,7 +162,7 @@ export default {
 .AbilityBox {
   width: 100%;
   box-sizing: border-box;
-  padding:1rem;
+  padding: 1rem;
 
   .screenBox {
     .search {
@@ -174,15 +187,12 @@ export default {
     padding: 0.5rem;
     background: #ffffff;
     margin: 0.5rem 1rem 1rem 0;
-    border:1px solid #eeeeee;
-    
-   
+    border: 1px solid #eeeeee;
   }
 
-  .itemInfo{
-    
-    .productBox{
-      padding:1rem;
+  .itemInfo {
+    .productBox {
+      padding: 1rem;
     }
   }
 
@@ -209,8 +219,8 @@ export default {
         color: rgba(241, 44, 11, 1);
       }
 
-      .company{
-        color:#999;
+      .company {
+        color: #999;
       }
     }
 
@@ -268,6 +278,14 @@ export default {
   .tagBox {
     padding: 1rem;
     border-bottom: 1px solid #f2f4f2;
+    .items {
+      display: flex;
+      align-items: center;
+       margin-bottom: 0.5rem;
+    }
+    .el-avatar{
+      margin-right: 0.3rem;
+    }
   }
   .box-card {
     margin: 0.5rem 0.5rem 0.5rem 0;
@@ -289,18 +307,17 @@ export default {
       width: 8.75rem;
       height: 10.13rem;
       margin-bottom: 0.5rem;
-      
     }
-     span {
-        color: #999999;
-        line-height: 1.5rem;
-        width:9rem;
-        display:inline-block;
-        text-align: right;
-      }
-      .Model{
-          display: flex;
-      }
+    span {
+      color: #999999;
+      line-height: 1.5rem;
+      width: 9rem;
+      display: inline-block;
+      text-align: right;
+    }
+    .Model {
+      display: flex;
+    }
   }
 }
 </style>

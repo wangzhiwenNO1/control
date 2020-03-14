@@ -71,7 +71,7 @@
       </div>
     </el-col>
     <el-col :span="10">
-      <div class="providerBox">
+      <div class="demandBox">
         <div class="title">
           <div>选择服务方</div>
           <div>2/5</div>
@@ -82,8 +82,8 @@
               <el-avatar :size="30" src="#"></el-avatar>
               <div>上海少林检测技术服务有限公司</div>
             </div>
-
-            <i class="el-icon-close"></i>
+            <el-tag v-for="tag in tags" :key="tag.name" closable :type="tag.type">{{tag.name}}</el-tag>
+            <!-- <i class="el-icon-close"></i> -->
           </li>
         </ul>
         <div class="btnRow">
@@ -98,6 +98,13 @@
 export default {
   data() {
     return {
+      tags: [
+        { name: "标签一", type: "" },
+        { name: "标签二", type: "success" },
+        { name: "标签三", type: "info" },
+        { name: "标签四", type: "warning" },
+        { name: "标签五", type: "danger" }
+      ],
       fileList: [
         {
           name: "food.jpeg",
@@ -193,79 +200,81 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.demand {
+  .el-row {
+    box-sizing: border-box;
+    margin: 0;
+  }
+  .el-form-item {
+    margin-bottom: 10px;
+  }
+  .formBox {
+    padding: 1rem;
+    box-sizing: border-box;
+    background: #ffffff;
+    margin: 1rem;
+    border-radius: 0.3rem;
+    font-size: 0.8rem;
 
-  .demand{
-    .el-row {
-      box-sizing: border-box;
-      margin: 0;
+    .title {
+      padding: 0.5rem;
+      border-bottom: 1px solid #f2f4fa;
+      margin-bottom: 0.5rem;
     }
-    .el-form-item {
-      margin-bottom: 10px;
-    }
-    .formBox {
-      padding: 1rem;
-      box-sizing: border-box;
-      background: #ffffff;
-      margin: 1rem;
-      border-radius: 0.3rem;
+
+    .el-form {
       font-size: 0.8rem;
-
-      .title {
-        padding: 0.5rem;
-        border-bottom: 1px solid #f2f4fa;
-        margin-bottom: 0.5rem;
-      }
-
-      .el-form {
-        font-size: 0.8rem;
-      }
-
-    }
-
-    .providerBox {
-      padding: 1rem;
-      box-sizing: border-box;
-      background: #ffffff;
-      margin: 1rem;
-      border-radius: 0.3rem;
-
-      .title {
-        padding: 0.3rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #f2f4ff;
-        margin-bottom: 0.3rem;
-      }
-
-      ul {
-        padding: 0.5rem 0;
-
-        li {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-
-          .items {
-            display: flex;
-            align-items: center;
-          }
-        }
-      }
-      .el-avatar{
-        margin-right: 0.4rem;
-      }
-      .btnRow {
-        padding: 1rem 0;
-        border-top: 1px solid #f2f4ff;
-        display: flex;
-        justify-content: center;
-
-        .el-button {
-          width: 8rem;
-        }
-      }
     }
   }
 
+  .demandBox {
+    padding: 1rem;
+    box-sizing: border-box;
+    background: #ffffff;
+    margin: 1rem;
+    border-radius: 0.3rem;
+
+    .title {
+      padding: 0.3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #f2f4ff;
+      margin-bottom: 0.3rem;
+    }
+
+    ul {
+      padding: 0.5rem 0;
+
+      li {
+        // display: flex;
+        // justify-content: space-between;
+        // flex-direction: column;
+
+        .items {
+          display: flex;
+          align-items: center;
+         
+        }
+
+        .el-tag{
+          margin:0.3rem 0.3rem 0.3rem 0rem;
+        }
+      }
+    }
+    .el-avatar {
+      margin-right: 0.4rem;
+    }
+    .btnRow {
+      padding: 1rem 0;
+      border-top: 1px solid #f2f4ff;
+      display: flex;
+      justify-content: center;
+
+      .el-button {
+        width: 8rem;
+      }
+    }
+  }
+}
 </style>

@@ -163,13 +163,13 @@ export default {
           url = "/workbench";
           break;
         case 2:
-          url = "/order";
+          url = "/ordering";
           break;
         case 3:
-          url = "/equipment";
+          url = "/ability";
           break;
         case 4:
-          url = "/ability";
+          url = "/suppliers";
           break;
         case 5:
           url = "/laboratory";

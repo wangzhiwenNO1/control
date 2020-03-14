@@ -2,7 +2,21 @@
   <div class="order">
     <el-row :gutter="10">
       <el-col :span="6">
-        <div class="grid-content bg-purple leftBox">
+        <div class="grid-content bg-purple OrderIngLeftBox">
+          <div class="inputBox">
+            <div>
+              <el-input size="mini" suffix-icon="el-icon-search"></el-input>
+              <el-select v-model="value" size="mini" placeholder="请选择">
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                ></el-option>
+              </el-select>
+            </div>
+            <i class="el-icon-circle-plus-outline"></i>
+          </div>
           <!-- 左上 -->
           <div class="itemBox leftOne">
             <div class="orderNum">#45972</div>
@@ -208,7 +222,7 @@
                 </div>
                 <div>￥3200</div>
                 <div class="btnBox">
-                  <div class="infoBtn">详情</div>
+                  <div class="infoBtn" @click="goToInfo">详情</div>
                   <div class="ratifyBtn">批准</div>
                   <div class="refuseBtn">拒绝</div>
                 </div>
@@ -311,6 +325,29 @@ export default {
       priority: false, //优先级
       teamwork: false, //协作
       operating: false, //操作
+      options: [
+        {
+          value: "选项1",
+          label: "黄金糕"
+        },
+        {
+          value: "选项2",
+          label: "双皮奶"
+        },
+        {
+          value: "选项3",
+          label: "蚵仔煎"
+        },
+        {
+          value: "选项4",
+          label: "龙须面"
+        },
+        {
+          value: "选项5",
+          label: "北京烤鸭"
+        }
+      ],
+      value: "",
       tableData: [
         {
           id: "1",
@@ -383,6 +420,11 @@ export default {
       //     };
       //   }
       // }
+    },
+    goToInfo(){
+      this.$router.push({
+        path: "/order"
+      });
     }
   }
 };
@@ -679,14 +721,14 @@ export default {
       & > div:first-child {
         margin-bottom: 0.5rem;
       }
-      &>div:last-child{
-        color:#333333;
+      & > div:last-child {
+        color: #333333;
       }
 
       .conscientious {
         font-size: 0.75rem;
         // flex-direction: column;
-        
+
         & > div {
           font-size: 0.75rem;
         }
@@ -754,12 +796,36 @@ export default {
     }
   }
 
-  .leftBox {
+  .OrderIngLeftBox {
     .leftOne {
-      border-left: 3px solid #83E622;
+      border-left: 3px solid #83e622;
       .orderNum {
         font-size: 0.75rem;
         color: #999999;
+      }
+    }
+
+    .inputBox {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+
+      & > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      & > div:first-child {
+        width: 70%;
+      }
+      .el-input {
+        margin-right: 0.3rem;
+      }
+      .el-icon-circle-plus-outline {
+        color: #2C64FF;
+        font-size: 1.5rem;
+        margin-right: 0.5rem;
       }
     }
 
@@ -816,25 +882,25 @@ export default {
   .middleOne {
     background: #ffffff;
 
-    .title{
-      span{
-        color:#999999;
+    .title {
+      span {
+        color: #999999;
         font-size: 0.75rem;
         margin-left: 0.3rem;
       }
 
-      .el-button{
+      .el-button {
         font-size: 1rem;
-        color:#2C64FF;
-        span{
-          color:#2C64FF;
+        color: #2c64ff;
+        span {
+          color: #2c64ff;
         }
       }
     }
 
-    .btnBox{
-      div{
-        margin:0 0.3rem;
+    .btnBox {
+      div {
+        margin: 0 0.3rem;
       }
     }
 
@@ -851,11 +917,11 @@ export default {
         .infoBtn {
           color: #2c64ff;
         }
-        .ratifyBtn{
-          color:#3DC600;
+        .ratifyBtn {
+          color: #3dc600;
         }
-        .refuseBtn{
-          color: #F12C0B;
+        .refuseBtn {
+          color: #f12c0b;
         }
       }
     }
