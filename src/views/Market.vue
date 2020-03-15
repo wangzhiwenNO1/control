@@ -8,7 +8,7 @@
             <div class="btn">取消链接</div>
           </div>
         </el-col>
-        <el-col :span="14">
+        <el-col :span="11">
           <div class="middleBox">
             <div>上海少林检测技术服务有限公司</div>
             <el-breadcrumb separator="|">
@@ -18,7 +18,7 @@
             </el-breadcrumb>
           </div>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="11">
           <div class="rightBox">
             <div class="topIcon">
               <i class="el-icon-message"></i>

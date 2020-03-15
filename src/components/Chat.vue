@@ -35,7 +35,10 @@
             </div>
           </li>
         </ul>
-        <div class="subTitle">发送消息</div>
+        <div class="subTitle">
+          <div>发送消息</div>
+          <i class="iconEnclosure"></i>
+        </div>
         <div>
           <el-input type="textarea" v-model="desc" placeholder="请输入您要发送的消息"></el-input>
         </div>
@@ -160,6 +163,17 @@ export default {
 }
 .subTitle {
   padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .iconEnclosure{
+    display: inline-block;
+    width:1rem;
+    height: 1rem;
+    background: url("../assets/imgs/Btn-tjfj.png") no-repeat;
+    background-size: contain;
+  }
 }
 
 .el-textarea {

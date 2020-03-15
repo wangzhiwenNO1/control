@@ -60,7 +60,7 @@
                         url="/workbench";
                         break;
                     case 2:
-                        url="/register";
+                        url="/registerTwo";
                         break;
 
                     default:

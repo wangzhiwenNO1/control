@@ -37,12 +37,12 @@
         <div class="leftTop itemBox">
           <div class="title">快捷操作</div>
           <div class="btnRow">
-            <el-button round icon="el-icon-tickets">默认按钮</el-button>
-            <el-button round icon="el-icon-circle-plus-outline">默认按钮</el-button>
+            <div><i class="iconEdit"></i><span>提交新需求</span></div>
+            <div><i class="el-icon-circle-plus-outline"></i><span>邀请实验室</span></div>
           </div>
         </div>
         <div class="leftRight itemBox">
-          <div class="title">代办事项</div>
+          <div class="title">待办事项</div>
           <div>
             <!-- 无线循环 -->
             <!-- <ul class="infinite-list" v-infinite-scroll="load" style="overflow:auto">
@@ -58,7 +58,8 @@
                   <div class="time">2019-08-19 10:34</div>
                 </div>
                 <div>
-                  <el-button size="mini" round>查看详情</el-button>
+                  <el-button size="mini" round v-if="i!=3">查看详情</el-button>
+                  <div class="checkedBtn" v-else>已查看</div>
                 </div>
               </li>
             </ul>
@@ -68,7 +69,7 @@
       <div class="rightBox itemBox">
         <div class="title">统计分析</div>
         <div class="tabBoxs">
-          <div>
+          <div class="active">
             <i class="icon icon-expenditure"></i>支出统计
           </div>
           <div>
@@ -245,6 +246,35 @@ export default {
 
       .leftTop {
         margin: 1rem 0;
+
+        .btnRow{
+          &>div{
+            width:10rem;
+            height:3rem;
+            background:rgba(255,255,255,1);
+            border:1px solid rgba(218, 220, 227, 1);
+            border-radius:3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin:0 1rem;
+          }
+        }
+
+        .iconEdit{
+         background:url("../assets/imgs/Btn-tjxq.png") no-repeat;
+          background-size: contain;
+          display: inline-block;
+          width:1.3rem;
+          height: 1.3rem;
+          margin-right: 0.3rem;
+        }
+
+        .el-icon-circle-plus-outline{
+          font-size: 1.5rem;
+          color:#2C64FF;
+          margin-right: 0.3rem;
+        }
       }
 
       .btnRow {
@@ -301,6 +331,14 @@ export default {
       color: rgba(153, 153, 153, 1);
       padding-left: 1rem;
     }
+    .checkedBtn{
+
+      background:rgba(255,255,255,1);
+      border:1px solid rgba(218, 220, 227, 1);
+      border-radius:3rem;
+      padding:0.2rem 1.3rem;
+      color:#666666;
+    }
   }
 
   .infinite-list {
@@ -318,9 +356,10 @@ export default {
       margin-right: 1rem;
       display: flex;
       align-items: center;
-      border-bottom: 3px solid #2c64ff;
+
       font-size: 0.88rem;
     }
+
 
     .icon {
       width: 1rem;
@@ -328,15 +367,29 @@ export default {
       margin-right: 0.5rem;
       display: block;
     }
-
     .icon-expenditure {
-      background: url("../assets/imgs/btn-zhichu2.png") no-repeat;
+      background: url("../assets/imgs/btn-zhichu1.png") no-repeat;
       background-size: contain;
     }
 
     .icon-order {
-      background: url("../assets/imgs/btn-dingdan2.png") no-repeat;
+      background: url("../assets/imgs/btn-dingdan1.png") no-repeat;
       background-size: contain;
+    }
+
+
+    .active{
+      border-bottom: 3px solid #2c64ff;
+
+      .icon-expenditure {
+        background: url("../assets/imgs/btn-zhichu2.png") no-repeat;
+        background-size: contain;
+      }
+
+      .icon-order {
+        background: url("../assets/imgs/btn-dingdan2.png") no-repeat;
+        background-size: contain;
+      }
     }
   }
 

@@ -102,8 +102,8 @@
           </li>
         </ul>
         <div class="btnRow">
-          <el-button size="mini" class="greenBg" round @click="jump">提交</el-button>
-          <el-button size="mini"   round>取消</el-button>
+          <el-button size="mini" class="greenBg" round @click="jump">提交需求</el-button>
+          <el-button size="mini"   round>取消需求</el-button>
         </div>
       </div>
 
@@ -176,10 +176,7 @@ export default {
 .el-form-item {
   margin-bottom: 10px;
 }
-.el-checkbox-group {
-  display: flex;
-  flex-direction: column;
-}
+
 .el-checkbox__label{
   font-size:0.75rem;
 }
@@ -190,6 +187,11 @@ export default {
   margin-top: 0.2rem;
   border-radius: 0.3rem;
   box-sizing: border-box;
+
+  .el-checkbox-group {
+    display: flex;
+    flex-direction: column;
+  }
   ul {
     li {
       margin-bottom: 0.5rem;

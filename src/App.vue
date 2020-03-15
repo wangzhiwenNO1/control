@@ -15,12 +15,12 @@
         </el-col>
         <el-col :span="8">
           <div class="grid-content bg-purple topRight">
-            <div class="alarmBox">
+            <div class="alarmBox" @click="changeNotice">
               <div class="alarm">
                 <i class="icon"></i>
                 <span>(5)</span>
               </div>
-              <div class="noteBox">
+              <div class="noteBox" v-if="notice">
                 <div class="triangle triangleNote"></div>
                 <div class="title">
                   <i class="el-icon-bell"></i>
@@ -54,9 +54,9 @@
               </div>
             </div>
 
-            <div class="avatar"></div>
-            <div class="triangle" v-if="false"></div>
-            <ul v-if="false">
+            <div class="avatar" @click="changeSetup"></div>
+            <div class="triangle" v-if="setup"></div>
+            <ul v-if="setup">
               <li>令狐冲</li>
               <li>
                 <i class="el-icon-share"></i>
@@ -151,7 +151,9 @@ export default {
   components: {},
   data() {
     return {
-      type: 1
+      type: 1,
+      notice:false,
+      setup:false
     };
   },
   methods: {
@@ -184,6 +186,12 @@ export default {
       this.$router.push({
         path: url
       });
+    },
+    changeNotice(){
+      this.notice=!this.notice;
+    },
+    changeSetup(){
+      this.setup=!this.setup;
     }
   }
 };
@@ -458,7 +466,7 @@ export default {
         background-size: contain;
       }
       .gysgl {
-        background: url("./assets/imgs/btn-shichang1.png") no-repeat;
+        background: url("./assets/imgs/btn-gys1.png") no-repeat;
         background-size: contain;
       }
       .zxsc {
@@ -486,7 +494,7 @@ export default {
           background-size: contain;
         }
         .gysgl {
-          background: url("./assets/imgs/btn-shichang2.png") no-repeat;
+          background: url("./assets/imgs/btn-gys2.png") no-repeat;
           background-size: contain;
         }
         .zxsc {

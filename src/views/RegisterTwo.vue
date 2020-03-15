@@ -1,5 +1,5 @@
 <template>
-    <div class="registerBox">
+    <div class="registerTwoBox">
         <div class="logoBox"></div>
         <div class="mainBox">
             <div class="title">注册</div>
@@ -35,7 +35,7 @@
             </div>
             <div class="btnRows">
                 <el-button round>上一步</el-button>
-                <el-button round class="next">下一步</el-button>
+                <el-button round class="next" @click="jump">下一步</el-button>
             </div>
         </div>
         <div class="goBack">返回首页 <i class="el-icon-arrow-right"></i></div>
@@ -64,12 +64,19 @@
                 }],
                 value: ''
             }
+        },
+        methods:{
+            jump(){
+                this.$router.push({
+                    path: "/register",
+                })
+            }
         }
     }
 </script>
 
 <style lang="less" scoped>
-    .registerBox {
+    .registerTwoBox {
         background: #F2F4FA;
         width: 100%;
         height: 100vh;

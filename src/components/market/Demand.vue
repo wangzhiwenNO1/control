@@ -8,6 +8,7 @@
           :model="ruleForm"
           :rules="rules"
           ref="ruleForm"
+          label-position="left"
           label-width="120px"
           class="demo-ruleForm"
         >
@@ -32,7 +33,7 @@
               style="width: 100%;"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="需求完成日期" prop="date2">
+          <el-form-item label="需求完成日期" >
             <el-date-picker
               type="date"
               placeholder="选择日期"
@@ -59,7 +60,7 @@
                   :on-exceed="handleExceed"
                   :file-list="fileList"
                 >
-                  <el-button size="mini" type="text">选择文件</el-button>
+                  <el-button size="mini" type="text" icon="el-icon-circle-plus-outline">选择文件</el-button>
                   <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
                 </el-upload>
               </el-col>
@@ -205,9 +206,9 @@ export default {
     box-sizing: border-box;
     margin: 0;
   }
-  .el-form-item {
-    margin-bottom: 10px;
-  }
+  /*.el-form-item {*/
+  /*  margin-bottom: 10px;*/
+  /*}*/
   .formBox {
     padding: 1rem;
     box-sizing: border-box;

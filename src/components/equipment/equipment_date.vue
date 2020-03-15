@@ -23,49 +23,49 @@
                     <el-table-column label="Mon 11">
                         <template slot-scope="scope">
                             <div class="blueBg" v-if="scope.row.mon==0"></div>
-                            <div class="greenBg" v-else-if="scope.row.mon==1"></div>
+                            <div class="greenBgs" v-else-if="scope.row.mon==1"></div>
                             <div class="greyBg" v-else></div>
                         </template>
                     </el-table-column>
                     <el-table-column label="Tue 12">
                         <template slot-scope="scope">
                             <div class="blueBg" v-if="scope.row.tue==0"></div>
-                            <div class="greenBg" v-else-if="scope.row.tue==1"></div>
+                            <div class="greenBgs" v-else-if="scope.row.tue==1"></div>
                             <div class="greyBg" v-else></div>
                         </template>
                     </el-table-column>
                     <el-table-column label="Wed 13">
                         <template slot-scope="scope">
                             <div class="blueBg" v-if="scope.row.wed==0"></div>
-                            <div class="greenBg" v-else-if="scope.row.wed==1"></div>
+                            <div class="greenBgs" v-else-if="scope.row.wed==1"></div>
                             <div class="greyBg" v-else></div>
                         </template>
                     </el-table-column>
                     <el-table-column label="Thu 14">
                         <template slot-scope="scope">
                             <div class="blueBg" v-if="scope.row.thu==0"></div>
-                            <div class="greenBg" v-else-if="scope.row.thu==1"></div>
+                            <div class="greenBgs" v-else-if="scope.row.thu==1"></div>
                             <div class="greyBg" v-else></div>
                         </template>
                     </el-table-column>
                     <el-table-column label="Fri 15">
                         <template slot-scope="scope">
                             <div class="blueBg" v-if="scope.row.fri==0"></div>
-                            <div class="greenBg" v-else-if="scope.row.fri==1"></div>
+                            <div class="greenBgs" v-else-if="scope.row.fri==1"></div>
                             <div class="greyBg" v-else></div>
                         </template>
                     </el-table-column>
-                    <el-table-column label="Set 16">
+                    <el-table-column label="Sat 16">
                         <template slot-scope="scope">
                             <div class="blueBg" v-if="scope.row.set==0"></div>
-                            <div class="greenBg" v-else-if="scope.row.set==1"></div>
+                            <div class="greenBgs" v-else-if="scope.row.set==1"></div>
                             <div class="greyBg" v-else></div>
                         </template>
                     </el-table-column>
                     <el-table-column label="Sun 17">
                         <template slot-scope="scope">
                             <div class="blueBg" v-if="scope.row.sun==0"></div>
-                            <div class="greenBg" v-else-if="scope.row.sun==1"></div>
+                            <div class="greenBgs" v-else-if="scope.row.sun==1"></div>
                             <div class="greyBg" v-else></div>
                         </template>
                     </el-table-column>
@@ -78,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="tableBox">
+            <div class="tableBoxes">
                 <div class="title">设备使用史</div>
                 <el-table
                         border
@@ -165,6 +165,10 @@
 
 <style lang="less">
     .equipmentDate{
+
+        .greenBgs{
+            background:rgba(176,226,128,1);
+        }
         .topBox {
             background: #FFFFFF;
             margin-bottom: 1rem;
@@ -180,7 +184,11 @@
         .introduce{
             display:flex;
             align-items: center;
-            padding:1rem 0 0;
+            padding:1.5rem 0 0;
+            &>div{
+                font-size: 0.75rem;
+                color: #999999;
+            }
 
             &>div{
                 margin-right:0.5rem;
@@ -257,6 +265,23 @@
             }
         }
 
+        .tableBoxes{
+            margin: 0.5rem 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            background: #FFFFFF;
+            padding: 1rem;
+
+            .title{
+                display:flex;
+                justify-content: space-between;
+                padding-bottom: 0.5rem;
+                border-bottom: 1px solid #EEEEEE;
+                margin-bottom: 0.5rem;
+            }
+        }
+
         .tableBoxs {
             margin: 0.5rem 0;
             -webkit-box-sizing: border-box;
@@ -289,7 +314,7 @@
                 width:100%;
                 height: 1.8rem;
             }
-            .greenBg{
+            .greenBgs{
                 background: #B0E280;
                 width:100%;
                 height: 1.8rem;

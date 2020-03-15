@@ -389,7 +389,7 @@ export default {
   }
 
   .icon-all {
-    background: url("../assets/imgs/btn-quanbu2.png") no-repeat;
+    background: url("../assets/imgs/btn-quanbu1.png") no-repeat;
     background-size: contain;
   }
 
@@ -398,15 +398,15 @@ export default {
   //     background-size: contain;
   // }
 
-  // .icon-important{
-  //     background:url("../assets/imgs/btn-zhongyao1.png") no-repeat;
-  //     background-size: contain;
-  // }
+   .icon-important{
+       background:url("../assets/imgs/btn-zhongyao1.png") no-repeat;
+       background-size: contain;
+   }
 
-  // .icon-ordinary{
-  //     background:url("../assets/imgs/btn-putong1.png") no-repeat;
-  //     background-size: contain;
-  // }
+   .icon-ordinary{
+       background:url("../assets/imgs/btn-putong1.png") no-repeat;
+       background-size: contain;
+   }
 
   // .icon-wholes{
   //     background:url("../assets/imgs/btn-qbry1.png") no-repeat;
@@ -427,6 +427,21 @@ export default {
     i::before {
       color: #2c64ff;
     }
+    .icon-all {
+      background: url("../assets/imgs/btn-quanbu2.png") no-repeat;
+      background-size: contain;
+    }
+
+    .icon-important{
+      background:url("../assets/imgs/btn-zhongyao2.png") no-repeat;
+      background-size: contain;
+    }
+
+    .icon-ordinary{
+      background:url("../assets/imgs/btn-putong2.png") no-repeat;
+      background-size: contain;
+    }
+
     .icon-wholes {
       background: url("../assets/imgs/btn-qbry2.png") no-repeat;
       background-size: contain;
