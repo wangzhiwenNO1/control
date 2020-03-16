@@ -52,7 +52,8 @@
               <li v-for="(i,index) in 3" :key="index">
                 <div>
                   <div class="dealtLeft">
-                    <i class="icon"></i>
+                    <i class="icon" v-if="i!=3"></i>
+                    <i class="icon readIcon" v-else></i>
                     <span>您收到一份报价，请查看</span>
                   </div>
                   <div class="time">2019-08-19 10:34</div>
@@ -323,6 +324,10 @@ export default {
       display: inline-block;
       background: #2c64ff;
       border-radius: 50%;
+    }
+
+    .readIcon{
+      background: #666;
     }
 
     .time {

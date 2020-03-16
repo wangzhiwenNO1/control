@@ -1,7 +1,7 @@
 <template>
     <div class="registerTwoBox">
-        <div class="logoBox"></div>
-        <div class="mainBox">
+        <div class="logoBox"><img src="../assets/imgs/icon-LOGO2.png" alt=""></div>
+        <div class="mainTwoBox">
             <div class="title">注册</div>
             <div>
                 <div class="label">姓名</div>
@@ -87,13 +87,11 @@
         align-items: center;
 
         .logoBox {
-            width: 13.75rem;
             height: 3.38rem;
-            background: #000;
             margin: 2rem;
         }
 
-        .mainBox {
+        .mainTwoBox {
             width: 31.25rem;
             background: rgba(255, 255, 255, 1);
             border-radius: 0.3rem;

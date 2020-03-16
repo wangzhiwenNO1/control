@@ -2,51 +2,49 @@
   <div>
     <div>
       <el-row class="marketTop">
-        <el-col :span="2">
-          <div class="leftBox">
-            <el-avatar :size="50" src="#"></el-avatar>
+        <el-col :span="1">
+          <div class="marketTopleftBox">
+            <el-avatar :size="60" shape="square" src="#"></el-avatar>
             <div class="btn">取消链接</div>
           </div>
         </el-col>
-        <el-col :span="11">
-          <div class="middleBox">
-            <div>上海少林检测技术服务有限公司</div>
-            <el-breadcrumb separator="|">
-              <el-breadcrumb-item>上海</el-breadcrumb-item>
-              <el-breadcrumb-item>检测实验室</el-breadcrumb-item>
-              <el-breadcrumb-item>ISO/IEC17025认可，CMA资质认定</el-breadcrumb-item>
-            </el-breadcrumb>
-          </div>
-        </el-col>
-        <el-col :span="11">
-          <div class="rightBox">
-            <div class="topIcon">
-              <i class="el-icon-message"></i>
-              <i class="el-icon-chat-dot-square"></i>
-              <el-button type="primary" class="sendQuest" round>发起需求申请</el-button>
+        <el-col :span="23">
+          <div class="marketMiddleBox">
+            <div>
+              <div>上海少林检测技术服务有限公司</div>
+              <ul>
+                <li>上海</li>
+                <li>检测实验室</li>
+                <li>ISO/IEC17025认可，CMA资质认定</li>
+              </ul>
             </div>
-            <el-row class="topRight">
-              <el-col :span="8">
-                <div>
-                  <i class="el-icon-message"></i>
-                  <div>总订单：100</div>
-                </div>
-              </el-col>
-              <el-col :span="8">
-                <div>
-                  <i class="el-icon-message"></i>
-                  <div>总订单：100</div>
-                </div>
-              </el-col>
-              <el-col :span="8">
-                <div>
-                  <i class="el-icon-message"></i>
-                  <div>总订单：100</div>
-                </div>
-              </el-col>
-            </el-row>
+            <div class="rightBox">
+              <div class="topIcon">
+                <i class="el-icon-message"></i>
+                <i class="el-icon-chat-dot-square"></i>
+                <el-button type="primary" class="sendQuest" round>发起需求申请</el-button>
+              </div>
+            </div>
           </div>
+
+          <div class="marketTopRight">
+            <div>
+              <i class="icon iconOrder"></i>
+              <div>总订单：100</div>
+            </div>
+            <div>
+              <i class="icon iconApproval"></i>
+              <div>认可指数：8</div>
+            </div>
+            <div>
+              <i class="icon iconEvaluate"></i>
+              <div>服务评价：4.8/5</div>
+            </div>
+          </div>
+
         </el-col>
+
+
       </el-row>
       <!--  -->
       <div class="MarketBox">
@@ -124,8 +122,76 @@ export default {
 .marketTop {
   padding: 1rem;
   box-sizing: border-box;
-  background: #EEEEEE;
+  background:rgba(0, 0, 0, 0.5);
   margin-bottom:0.5rem;
+  color:#FFFFFF;
+
+  .marketMiddleBox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:0 1rem;
+
+    div{
+      font-size: 1.5rem;
+    }
+
+    ul{
+      display: flex;
+      align-items: center;
+      margin-top:0.5rem;
+
+      li{
+        margin-right: 0.5rem;
+        padding-right: 0.5rem;
+        border-right: 1px solid #FFFFFF;
+        line-height: 1rem;
+      }
+      &>li:last-child{
+        border:none;
+      }
+    }
+  }
+
+
+  .marketTopleftBox{
+    text-align: center;
+
+  }
+
+  .marketTopRight{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    color:#FFFFFF;
+
+    &>div{
+      margin:0 1rem;
+      display: flex;
+      align-items: center;
+
+      .icon{
+        display: inline-block;
+        width:1rem;
+        height: 1rem;
+        margin-right: 0.3rem;
+      }
+
+      .iconOrder{
+        background: url("../assets/imgs/icon-ddsl1.png") no-repeat;
+        background-size: contain;
+      }
+      .iconApproval{
+        background: url("../assets/imgs/icon-rkzs1.png") no-repeat;
+        background-size: contain;
+      }
+      .iconEvaluate{
+        background: url("../assets/imgs/icon-fwpj1.png") no-repeat;
+        background-size: contain;
+      }
+
+    }
+  }
 }
 .rightBox {
   display: flex;
@@ -141,6 +207,7 @@ export default {
     i{
       margin-right: 1rem;
       font-size:1.2rem;
+      color:#FFF;
 
       &::before{
         font-size:1.5rem;
@@ -166,6 +233,7 @@ export default {
 
 .topRight {
   margin-top: 1rem;
+  color:#FFF;
   .el-col {
     & > div {
       display: flex;
