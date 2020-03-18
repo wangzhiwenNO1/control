@@ -10,7 +10,14 @@
         </el-col>
         <el-col :span="8">
           <div class="grid-content bg-purple-light TopsearchBox">
-            <div class="searchBox"></div>
+            <div class="searchBox">
+              <el-input
+                      class="searchInput"
+                      size="mini"
+                      placeholder="搜索：检测项目、实验室或标准等"
+                      suffix-icon="el-icon-search">
+              </el-input>
+            </div>
           </div>
         </el-col>
         <el-col :span="8">
@@ -217,8 +224,18 @@ export default {
 .searchBox {
   width: 20rem;
   height: 2rem;
-  background: rgba(25, 80, 233, 1);
+
   border-radius: 1rem;
+
+  .searchInput{
+    width: 100%;
+
+    input{
+      background: rgba(25, 80, 233, 1);
+      border:none;
+      border-radius: 2rem;
+    }
+  }
 }
 .topRight {
   display: flex;
@@ -415,8 +432,8 @@ export default {
     align-items: center;
     i {
       display: inline-block;
-      width: 1rem;
-      height: 1rem;
+      width: 1.5rem;
+      height: 1.5rem;
       background: url("./assets/imgs/icon-tongzhi.png");
       background-size: contain;
       margin-right: 0.3rem;
