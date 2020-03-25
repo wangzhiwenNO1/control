@@ -163,6 +163,9 @@ export default {
       setup:false
     };
   },
+  created() {
+
+  },
   methods: {
     jump(type) {
       this.type = type;

@@ -7,15 +7,15 @@
             <div class="title">登录</div>
             <div class="inputBox">
                 <div><i class="el-icon-message"></i></div>
-                <el-input placeholder="请输入您在所属机构中的职位名称"></el-input>
+                <el-input placeholder="请输入您在所属机构中的职位名称" v-model="userName"></el-input>
             </div>
             <div class="inputBox">
                 <div><i class="el-icon-message"></i></div>
-                <el-input placeholder="请输入所属机构的名称"></el-input>
+                <el-input placeholder="请输入所属机构的名称" v-model="password"></el-input>
             </div>
 
             <div>
-                <el-button round @click="jump(1)">登录</el-button>
+                <el-button round @click="goToLogin(1)">登录</el-button>
             </div>
             <div class="textBox">
                 <div>忘记密码?</div>
@@ -33,6 +33,8 @@
     export default {
         data() {
             return {
+                userName:"",
+                password:"",
                 options: [{
                     value: '选项1',
                     label: '黄金糕'
@@ -53,6 +55,16 @@
             }
         },
         methods: {
+            goToLogin(){
+                console.log(this.password);
+
+                this.Axios.post("/lab2lab/v1/provider/login",{
+                    userName:this.userName,
+                    password:this.password,
+                }).then(function (res) {
+                    console.log(res);
+                })
+            },
             jump(type){
                 let url="";
                 switch (type) {
