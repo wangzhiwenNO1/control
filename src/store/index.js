@@ -9,10 +9,9 @@ export default new Vuex.Store({
     userInfo:{},
   },
   mutations: {
-    changeLogin(state, provider){
+    login(state, provider){
       state.hasLogin = true;
       state.userInfo = provider;
-
     },
   },
   actions: {

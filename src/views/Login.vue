@@ -30,6 +30,8 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+    import { mapMutations } from 'vuex';
     export default {
         data() {
             return {
@@ -54,15 +56,22 @@
                 value: ''
             }
         },
+        computed: {
+            ...mapState(['hasLogin', 'userInfo'])
+        },
         methods: {
+            ...mapMutations(['login']),
             goToLogin(){
                 console.log(this.password);
-
+                let that=this;
                 this.Axios.post("/lab2lab/v1/provider/login",{
                     userName:this.userName,
                     password:this.password,
                 }).then(function (res) {
                     console.log(res);
+                    if(res.code==200){
+                        that.login(res.data);
+                    }
                 })
             },
             jump(type){

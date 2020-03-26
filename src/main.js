@@ -15,9 +15,14 @@ axios.defaults.responseType = 'json';       //默认数据相应类型
 
 axios.interceptors.response.use(
     function (response) {
-        console.log(store.state.hasLogin);
         // store.commit("changeLogin",true);
-
+        console.log(router.history.current.path!="/login");
+        if (!store.state.hasLogin&&router.history.current.path!="/login") {
+            router.push({
+                path: '/login'
+            });
+            return;
+        }
         return response.data;
     },
     function (err) {
