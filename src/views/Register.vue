@@ -23,24 +23,16 @@
                     <el-row :gutter="20">
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
-                                <el-select v-model="value" placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
+                                <el-select v-model="pname" @change="choseProvince" placeholder="省级地区">
+                                    <el-option v-for="(item,$index) in province" :key="$index" :label="item.name" :value="item.code">
                                     </el-option>
                                 </el-select>
                             </div>
                         </el-col>
                         <el-col :span="12">
                             <div class="grid-content bg-purple">
-                                <el-select  v-model="value" placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
+                                <el-select v-model="cname" @change="choseCity" placeholder="市级地区">
+                                    <el-option v-for="(item,$index) in city" :key="$index" :label="item.name" :value="item.code">
                                     </el-option>
                                 </el-select>
                             </div>
@@ -62,27 +54,80 @@
 </template>
 
 <script>
+    // const ChineseDistricts = require('province-city-china/dist/data.json');
+    import ChineseDistricts from "province-city-china/data"
     export default {
         data() {
             return {
-                options: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }],
+                ChineseDistricts:ChineseDistricts,
+                province:[],
+                shi1: [],
+                qu1: [],
+                city:[],
+                block:[],
+                pname:'',//省的名字
+                cname:'',//市的名字
+                bname:'' , //区的名字
                 value: ''
             }
+        },
+        methods:{
+            // 加载china地点数据，三级
+            getCityData:function(){
+                let that = this;
+                that.ChineseDistricts.forEach(function(item,index){
+                    //省级数据
+                    that.province.push({id: item.code, value: item.name, children: item.cityList})
+                })
+            },
+            // 选省
+            choseProvince:function(e) {
+                let that = this;
+                that.city = [];
+                that.block = [];
+                that.cname = '';
+                that.bname = '';
+                for (var index2 in that.province) {
+                    if (e === that.province[index2].id) {
+                        that.shi1 = that.province[index2].children;
+                        that.pname = that.province[index2].value;
+                        that.shi1.forEach(function(citem,cindex){
+                            that.city.push({id:citem.code,value: citem.name, children: citem.areaList})
+                        })
+                    }
+                }
+                console.log(that.pname)
+            },
+            // 选市
+            choseCity:function(e) {
+                let that = this;
+                that.block = [];
+                for (var index3 in that.city) {
+                    if (e === that.city[index3].id) {
+                        that.qu1 = that.city[index3].children
+                        that.cname = that.city[index3].value
+                        that.E = that.qu1[0].id
+                        that.qu1.forEach(function(bitem,bindex){
+                            that.block.push({id:bitem.code,value: bitem.name, children: []})
+                        })
+                    }
+                }
+                console.log(that.cname)
+            },
+            // 选区
+            choseBlock:function(e) {
+                this.bname=e;
+                console.log(this.bname)
+
+            },
+
+        },
+
+        created:function(){
+            console.log(this.ChineseDistricts.province);
+            this.province=this.ChineseDistricts.province;
+            // this.getCityData()
+
         }
     }
 </script>
