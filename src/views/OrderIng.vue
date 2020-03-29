@@ -18,41 +18,47 @@
                         <i class="el-icon-circle-plus-outline"></i>
                     </div>
                     <!-- 左上 -->
-                    <div class="itemBox leftOne">
-                        <div class="orderNum">#45972</div>
-                        <div class="orderName">
-                            <div>T2019083003 Demo 003 检测项目</div>
-                            <div class="price">￥3000</div>
-                            <i class="el-icon-more"></i>
-                        </div>
-                        <ul class="ulBoxs">
-                            <li>
-                                <div>状态</div>
-                                <div class="state">已完成</div>
-                            </li>
-                            <li>
-                                <div>负责人</div>
-                                <div class="conscientious">
-                                    <div class="avatar"></div>
-                                    <div>斩无极</div>
+                    <ul class="infinite-list " v-infinite-scroll="load" style="overflow:auto">
+                        <li v-for="i in count" class="infinite-list-item">
+                            <div class="itemBox leftOne">
+                                <div class="orderNum">#45972</div>
+                                <div class="orderName">
+                                    <div>T2019083003 Demo 003 检测项目</div>
+                                    <div class="price">￥3000</div>
+                                    <i class="el-icon-more"></i>
                                 </div>
-                            </li>
-                            <li>
-                                <div>优先级</div>
-                                <div>
-                                    <i></i>
-                                    <div>中</div>
-                                </div>
-                            </li>
-                            <li>
-                                <div>未读消息</div>
-                                <div>
-                                    <i class="el-icon-chat-dot-square"></i>
-                                    <span>5</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                                <ul class="ulBoxs">
+                                    <li>
+                                        <div>状态</div>
+                                        <div class="state">已完成</div>
+                                    </li>
+                                    <li>
+                                        <div>负责人</div>
+                                        <div class="conscientious">
+                                            <div class="avatar"></div>
+                                            <div>斩无极</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>优先级</div>
+                                        <div>
+                                            <i></i>
+                                            <div>中</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>未读消息</div>
+                                        <div>
+                                            <i class="el-icon-chat-dot-square"></i>
+                                            <span>5</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+
+
                 </div>
             </el-col>
             <el-col :span="9">
@@ -328,6 +334,7 @@
         },
         data() {
             return {
+                count: 0,
                 activeName: 1,
                 principal: false, //负责人
                 priority: false, //优先级
@@ -392,6 +399,9 @@
             };
         },
         methods: {
+            load () {
+                this.count += 2
+            },
             handleCommand(command) {
                 this.$message("click on item " + command);
             },
@@ -845,11 +855,18 @@
         .OrderIngLeftBox {
             .leftOne {
                 border-left: 3px solid #83e622;
+                margin-bottom: 1rem;
 
                 .orderNum {
                     font-size: 0.75rem;
                     color: #999999;
                 }
+            }
+
+            .infinite-list{
+                height: calc(100vh - 15rem);
+                padding:0.5rem;
+                box-sizing: border-box;
             }
 
             .inputBox {

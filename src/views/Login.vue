@@ -62,7 +62,6 @@
         methods: {
             ...mapMutations(['login']),
             goToLogin(){
-                console.log(this.password);
                 let that=this;
                 this.Axios.post("/lab2lab/v1/provider/login",{
                     userName:this.userName,
@@ -71,6 +70,23 @@
                     console.log(res);
                     if(res.code==200){
                         that.login(res.data);
+                        that.getTeam();
+                        that.$router.push({
+                            path: "/workbench",
+                        })
+                    }
+                })
+            },
+            //团队成员
+            getTeam() {
+                let that = this;
+                console.log(12);
+                this.Axios.get("/lab2lab/v1/provider/getteammember",{
+                    // access_token:that.userInfo.access_token
+                }).then(function (res) {
+                    console.log(res);
+                    if(res.code==200){
+                        that.changeTeamMembers(res.data);
                     }
                 })
             },

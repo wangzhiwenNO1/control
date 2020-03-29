@@ -12,17 +12,18 @@ axios.defaults.responseType = 'json';       //默认数据相应类型
 // http response 拦截器
 // ajax请求回调之前拦截 对请求返回的信息做统一处理 比如error为401无权限则跳转到登陆界面
 
-
 axios.interceptors.response.use(
-    function (response) {
+
+    response=> {
         // store.commit("changeLogin",true);
-        console.log(router.history.current.path!="/login");
+
         if (!store.state.hasLogin&&router.history.current.path!="/login") {
             router.push({
                 path: '/login'
             });
             return;
         }
+
         return response.data;
     },
     function (err) {
@@ -80,8 +81,14 @@ Vue.prototype.Axios = {
     // get 方法
     get: function (api, data) {
 
+
         return new Promise(function (resolve, reject) {
             const url = api;
+            let token=store.state.userInfo.access_token;
+            if(token){
+                data.access_token=token;
+            }
+
             axios.get(url, {params: data})
                 .then(function (response) {
 
@@ -97,6 +104,10 @@ Vue.prototype.Axios = {
 
         return new Promise(function (resolve, reject) {
             const url = api;
+            let token=store.state.userInfo.access_token;
+            if(token){
+                data.access_token=token;
+            }
             axios.post(url, qs.stringify(data))
                 .then(function (response) {
                     resolve(response);

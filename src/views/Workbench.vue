@@ -4,31 +4,31 @@
       <ul>
         <li>
           <div>待报价订单</div>
-          <div>3</div>
+          <div>{{numbers.waitingCount}}</div>
         </li>
         <li>
           <div>执行中订单</div>
-          <div>16</div>
+          <div>{{numbers.runningCount}}</div>
         </li>
         <li>
           <div>已完成订单</div>
-          <div>266</div>
+          <div>{{numbers.finishedCount}}</div>
         </li>
         <li>
           <div>总支出</div>
           <div>
-            <span>￥</span>82,345
+            <span>￥</span>{{numbers.payment}}
           </div>
         </li>
       </ul>
       <ul>
         <li>
-          <div>已完成订单</div>
-          <div>266</div>
+          <div>关联设备数量</div>
+          <div>{{numbers.devCount}}</div>
         </li>
         <li>
-          <div>已完成订单</div>
-          <div>266</div>
+          <div>供应商数量</div>
+          <div>{{numbers.providerCount}}</div>
         </li>
       </ul>
     </div>
@@ -114,12 +114,14 @@
 
 <script>
 // @ is an alias to /src
+import {mapState} from "vuex";
 
 export default {
   name: "workbench",
   components: {},
   data() {
     return {
+      numbers:"",
       count: 0,
       options: [
         {
@@ -167,7 +169,26 @@ export default {
       value2: ""
     };
   },
+  computed: {
+    ...mapState(['hasLogin', 'userInfo'])
+  },
+  mounted() {
+    this.getnumbers();
+  },
   methods: {
+    getnumbers(){
+      //  获取需求方数字统计
+      let that = this;
+      this.Axios.get("/lab2lab/v1/requestor/getnumbers",{
+        access_token:that.userInfo.access_token
+      }).then(function (res) {
+        console.log(res);
+        if(res.code==200){
+          that.numbers=res.data;
+        }
+      })
+
+    },
     load() {
       this.count += 2;
     }
