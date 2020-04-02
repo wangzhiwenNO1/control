@@ -19,38 +19,42 @@
                     </div>
                     <!-- 左上 -->
                     <ul class="infinite-list " v-infinite-scroll="load" style="overflow:auto">
-                        <li v-for="i in count" class="infinite-list-item">
+                        <li v-for="(item,index) in orderList" :key="index" class="infinite-list-item">
                             <div class="itemBox leftOne">
-                                <div class="orderNum">#45972</div>
+                                <div class="orderNum">#{{item.orderNum}}</div>
                                 <div class="orderName">
-                                    <div>T2019083003 Demo 003 检测项目</div>
-                                    <div class="price">￥3000</div>
+                                    <div>{{item.orderName}}</div>
+                                    <div class="price">￥{{item.floorQuote}}</div>
                                     <i class="el-icon-more"></i>
                                 </div>
                                 <ul class="ulBoxs">
                                     <li>
                                         <div>状态</div>
-                                        <div class="state">已完成</div>
+                                        <div class="state" v-if="item.status==0">初始</div>
+                                        <div class="state" v-else-if="item.status==1">报价中</div>
+                                        <div class="state" v-else-if="item.status==2">进行中</div>
+                                        <div class="state" v-else-if="item.status==3">已完成</div>
+                                        <div class="state" v-else-if="item.status==4">已关闭</div>
                                     </li>
                                     <li>
                                         <div>负责人</div>
                                         <div class="conscientious">
                                             <div class="avatar"></div>
-                                            <div>斩无极</div>
+                                            <div>{{item.customerManagerName}}</div>
                                         </div>
                                     </li>
                                     <li>
                                         <div>优先级</div>
                                         <div>
                                             <i></i>
-                                            <div>中</div>
+                                            <div>{{item.priority}}</div>
                                         </div>
                                     </li>
                                     <li>
                                         <div>未读消息</div>
                                         <div>
                                             <i class="el-icon-chat-dot-square"></i>
-                                            <span>5</span>
+                                            <span>{{item.unreadMessageCount}}</span>
                                         </div>
                                     </li>
                                 </ul>
@@ -64,9 +68,9 @@
             <el-col :span="9">
                 <div class="grid-content bg-purple middleBox">
                     <div class="itemBox leftOne">
-                        <div class="orderNum">#45972</div>
+                        <div class="orderNum">#{{orderInfo.orderNum}}</div>
                         <div class="orderName">
-                            <div>T2019083003 Demo 003 检测项目</div>
+                            <div>{{orderInfo.orderName}}</div>
                             <i class="el-icon-more moreBtn" @click="changeOperating">
                                 <div class="triangle" v-if="operating"></div>
                                 <ul v-if="operating">
@@ -90,15 +94,19 @@
                         <ul class="ulBoxs">
                             <li>
                                 <div>状态</div>
-                                <div class="state">已完成</div>
+                                <div class="state" v-if="orderInfo.status==0">初始</div>
+                                <div class="state" v-else-if="orderInfo.status==1">报价中</div>
+                                <div class="state" v-else-if="orderInfo.status==2">进行中</div>
+                                <div class="state" v-else-if="orderInfo.status==3">已完成</div>
+                                <div class="state" v-else="orderInfo.status==4">已关闭</div>
                             </li>
                             <li>
                                 <div>负责人</div>
                                 <div class="conscientious">
-                                  <div @click="changePrincipal">
-                                    <div class="avatar"></div>
-                                    <div>斩无极</div>
-                                  </div>
+                                    <div @click="changePrincipal">
+                                        <div class="avatar"></div>
+                                        <div>{{orderInfo.customerManagerName}}</div>
+                                    </div>
 
                                     <div class="triangle" v-if="principal"></div>
                                     <ul v-if="principal">
@@ -123,8 +131,8 @@
                                 <div>优先级</div>
                                 <div class="priority">
                                     <div @click="changePriority">
-                                      <i class="yellowIcon"></i>
-                                      <div>中</div>
+                                        <i class="yellowIcon"></i>
+                                        <div>{{orderInfo.priority}}</div>
                                     </div>
 
                                     <div class="triangle" v-if="priority"></div>
@@ -177,39 +185,23 @@
                                         <li>协作人员</li>
                                         <li class="cooperationTwoBox">
                                             <ul class="cooperationTwo">
-                                                <li>
+                                                <li v-for="(item,index) in 3" :key="index">
                                                     <el-avatar :size="20"></el-avatar>
                                                     <span>令狐冲</span>
                                                     <i class="el-icon-remove-outline"></i>
                                                 </li>
-                                                <li>
-                                                    <el-avatar :size="20"></el-avatar>
-                                                    <span>令狐冲</span>
-                                                    <i class="el-icon-circle-plus-outline"></i>
-                                                </li>
-                                                <li>
-                                                    <el-avatar :size="20"></el-avatar>
-                                                    <span>令狐冲</span>
-                                                    <i class="el-icon-remove-outline"></i>
-                                                </li>
+
                                                 <li>
                                                     <div>保存</div>
                                                     <div>取消</div>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li>
+                                        <li v-for="(item,index) in orderInfo.memberList" :key="index">
                                             <el-avatar :size="20"></el-avatar>
-                                            <span>令狐冲</span>
+                                            <span>{{item.teamUserName}}</span>
                                         </li>
-                                        <li>
-                                            <el-avatar :size="20"></el-avatar>
-                                            <span>令狐冲</span>
-                                        </li>
-                                        <li>
-                                            <el-avatar :size="20"></el-avatar>
-                                            <span>令狐冲</span>
-                                        </li>
+
 
                                         <li>编辑</li>
                                     </ul>
@@ -230,7 +222,7 @@
                             <li>
                                 <div>
                                     <el-avatar :size="30"></el-avatar>
-                                    <div>上海少林检测技术服务有限公司</div>
+                                    <div>{{orderInfo.labName}}</div>
                                 </div>
                                 <div>￥3200</div>
                                 <div class="btnBox">
@@ -334,6 +326,10 @@
         },
         data() {
             return {
+                pageNumber: 1,//订单列表当前页数
+                orderList: [],//订单列表
+                orderInfo:"",//订单详情
+
                 count: 0,
                 activeName: 1,
                 principal: false, //负责人
@@ -398,9 +394,41 @@
                 ]
             };
         },
+        mounted() {
+            this.getOrderList();
+
+        },
         methods: {
-            load () {
+            load() {
                 this.count += 2
+            },
+            //获取订单列表
+            getOrderList() {
+                let that = this;
+                this.Axios.get("/lab2lab/v1/requestor/getorderlist", {
+                    count: 10,
+                    pageNumber: this.pageNumber,
+                }).then(function (res) {
+                    if (res.code == 200) {
+                        that.orderList = res.data;
+                        that.getOrderInfo(0);
+                    }
+                })
+            },
+            //需求方订单更多详情
+            getOrderInfo(index){
+                let that = this;
+                this.Axios.get("/lab2lab/v1/requestor/getmoreorderdetail", {
+                    id:that.orderList[index].id,
+                    orderNum: 10,//订单编号
+                    serviceId:"",//服务方Id
+                }).then(function (res) {
+                    console.log(res);
+                    if (res.code == 200) {
+                        that.orderInfo = res.data;
+
+                    }
+                })
             },
             handleCommand(command) {
                 this.$message("click on item " + command);
@@ -408,14 +436,14 @@
             changeTeamwork() {
                 this.teamwork = !this.teamwork;
             },
-            changePrincipal(){
-                this.principal=!this.principal;
+            changePrincipal() {
+                this.principal = !this.principal;
             },
-            changePriority(){
-                this.priority=!this.priority;
+            changePriority() {
+                this.priority = !this.priority;
             },
-            changeOperating(){
-                this.operating=!this.operating;
+            changeOperating() {
+                this.operating = !this.operating;
             },
             arraySpanMethod({row, column, rowIndex, columnIndex}) {
                 // if (rowIndex % 2 === 0) {
@@ -466,7 +494,7 @@
     .moreBtn {
         position: relative;
 
-        &>div:first-child{
+        & > div:first-child {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -863,9 +891,9 @@
                 }
             }
 
-            .infinite-list{
+            .infinite-list {
                 height: calc(100vh - 15rem);
-                padding:0.5rem;
+                padding: 0.5rem;
                 box-sizing: border-box;
             }
 
@@ -1000,22 +1028,23 @@
                 }
             }
 
-            .btnRows{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-            .vsBtn{
+            .btnRows {
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
 
-            .iconVs{
+            .vsBtn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .iconVs {
                 background: url("../assets/imgs/Btn-jgbj.png") no-repeat;
                 background-size: contain;
                 display: inline-block;
-                width:1rem;
+                width: 1rem;
                 height: 1rem;
             }
         }
