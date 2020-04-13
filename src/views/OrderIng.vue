@@ -218,17 +218,17 @@
                                 <span>2/5</span>
                             </div>
                         </div>
-                        <ul class="ulBoxs">
-                            <li>
+                        <ul class="labBoxs">
+                            <li v-for="(ite,idx) in orderInfo.subPackage">
                                 <div>
-                                    <el-avatar :size="30"></el-avatar>
+                                    <el-avatar :src="ite.labLogo" :size="30"></el-avatar>
                                     <div>{{orderInfo.labName}}</div>
                                 </div>
-                                <div>￥3200</div>
+                                <div>￥{{ite.totalPrice}}</div>
                                 <div class="btnBox">
                                     <div class="infoBtn" @click="goToInfo">详情</div>
-                                    <div class="ratifyBtn">批准</div>
-                                    <div class="refuseBtn">拒绝</div>
+                                    <div class="ratifyBtn" v-if="orderInfo.status==1">批准</div>
+                                    <div class="refuseBtn" v-if="orderInfo.status==1">拒绝</div>
                                 </div>
                             </li>
                         </ul>
@@ -240,30 +240,29 @@
                             <ul class="demandBox">
                                 <li>
                                     <div>需求名称</div>
-                                    <div>Demo 003 检测项目</div>
+                                    <div>{{orderInfo.demandName}}</div>
                                 </li>
                                 <li>
-                                    <div>需求名称</div>
-                                    <div>Demo 003 检测项目</div>
+                                    <div>需求项目</div>
+                                    <div>{{orderInfo.demandItem}}</div>
                                 </li>
                                 <li>
-                                    <div>需求名称</div>
-                                    <div>Demo 003 检测项目</div>
+                                    <div>依据标准</div>
+                                    <div>{{orderInfo.basisStandard}}</div>
                                 </li>
                                 <li>
-                                    <div>需求名称</div>
-                                    <div>Demo 003 检测项目</div>
+                                    <div>样品描述</div>
+                                    <div>{{orderInfo.sampleDesc}}</div>
                                 </li>
                                 <li>
-                                    <div>需求名称</div>
+                                    <div>需求完成日期</div>
                                     <div>
-                                        <div>Demo 003 检测项目</div>
-                                        <div>Demo 003 检测项目</div>
+                                        <div>{{orderInfo.quotationFinishDate}}</div>
                                     </div>
                                 </li>
                                 <li>
-                                    <div>需求名称</div>
-                                    <div>Demo 003 检测项目</div>
+                                    <div>其他要求</div>
+                                    <div>{{orderInfo.otherRequirements}}</div>
                                 </li>
                             </ul>
                         </div>
@@ -279,9 +278,11 @@
                                 </div>
                             </div>
                             <ul class="fileBox">
-                                <li>
-                                    <div></div>
-                                    <div class="fileName">文件名</div>
+                                <li v-for="(files,i) in orderInfo.techFiles" :key="i">
+                                    <div>
+                                        <img :src="files.attrUrl" :alt="files.attrName">
+                                    </div>
+                                    <div class="fileName">{{files.attrName}}</div>
                                 </li>
                             </ul>
                         </div>
@@ -297,9 +298,11 @@
                                 </div>
                             </div>
                             <ul class="fileBox">
-                                <li>
-                                    <div></div>
-                                    <div class="fileName">文件名</div>
+                                <li v-for="(files,id) in orderInfo.purchaseFiles" :key="id">
+                                    <div>
+                                        <img :src="files.attrUrl" :alt="files.attrName">
+                                    </div>
+                                    <div class="fileName">{{files.attrName}}</div>
                                 </li>
                             </ul>
                         </div>
@@ -1009,6 +1012,33 @@
                     align-items: center;
                     justify-content: space-between;
                     color: #333333;
+
+
+                    & > div:first-child {
+                        margin-bottom: 0;
+                    }
+
+                    .infoBtn {
+                        color: #2c64ff;
+                    }
+
+                    .ratifyBtn {
+                        color: #3dc600;
+                    }
+
+                    .refuseBtn {
+                        color: #f12c0b;
+                    }
+                }
+            }
+
+            .labBoxs{
+                li{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    color: #333333;
+
 
                     & > div:first-child {
                         margin-bottom: 0;
