@@ -483,9 +483,10 @@
                 // }
             },
             goToInfo() {
-                this.$router.push({
-                    path: "/order"
-                });
+                this.$router.push({name:'order',params:{id:this.orderInfo.id,orderNum:this.orderInfo.orderName,serviceId:this.orderInfo.serviceId}});
+                // this.$router.push({
+                //     path: "/order"
+                // });
             }
         }
     };
