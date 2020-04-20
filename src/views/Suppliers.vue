@@ -22,20 +22,21 @@
       </div>
     </el-col>
     <el-col :span="12" class="cardBox">
-      <el-card class="box-card" v-if="true" shadow="hover">
+      <el-card class="box-card" v-if="true" shadow="hover" v-for="(item,index) in providersList" :key="index">
         <div class="cardItem">
           <div class="imgBox">
             <div @click="goToMarket">
-              <el-avatar :size="70" src="#"></el-avatar>
+              <el-avatar :size="70" :src="item.labLogo"></el-avatar>
             </div>
-
-            <el-button round size="mini" class="greenBor">链接</el-button>
+            <el-button round size="mini" class="greenBor" v-if="item.status==0">申请中</el-button>
+            <el-button round size="mini" class="greenBor" v-if="item.status==1">链接成功</el-button>
+            <el-button round size="mini" class="greenBor" v-if="item.status==2">链接拒绝</el-button>
           </div>
-          <div class="infoBox">
+          <div class="infoBox" >
             <div>
               <div>
-                <div class="name">上海少林检测技术服务有限公司</div>
-                <div class="site">上海市黄浦区示例路888号</div>
+                <div class="name">{{item.labName}}</div>
+                <div class="site">{{item.address}}</div>
               </div>
               <div>
                 <el-button round size="mini" class="greenBtn">选择</el-button>
@@ -44,15 +45,15 @@
             <div class="numBox">
               <div>
                 <i class="icon-num"></i>
-                <div>总订单数量：100</div>
+                <div>总订单数量：{{item.orderCount}}</div>
               </div>
               <div>
                 <i class="icon-renke"></i>
-                <div>认可指数：8</div>
+                <div>认可指数：{{item.rate}}</div>
               </div>
               <div>
                 <i class="icon-hua"></i>
-                <div>服务评价：100</div>
+                <div>服务评价：{{item.score}}</div>
               </div>
             </div>
           </div>
@@ -114,10 +115,34 @@ export default {
   data() {
     return {
       checkList: ["选中且禁用", "复选框 A"],
-      type: 1
+      type: 1,
+      providersList:[],
     };
   },
+  created() {
+    this.getList();
+  },
   methods: {
+    getList(){
+      let that=this;
+
+      this.Axios.get("/lab2lab/v1/requestor/getproviders", {
+        linked: 10,
+        page: 1,
+        limit:10,
+      }).then(function (res) {
+        console.log(res);
+        if (res.code == 200) {
+          if(res.data.length>0){
+            res.data.forEach((item)=>{
+              that.providersList.push(item);
+            })
+          }
+        }
+      })
+    },
+
+
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {

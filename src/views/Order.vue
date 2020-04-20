@@ -38,7 +38,7 @@
                                         </div>
 
                                     </div>
-                                    <div>{{orderInfo.memberList.length}}+</div>
+                                    <div v-if="orderInfo.memberList">{{orderInfo.memberList.length}}+</div>
                                     <div class="icon addIcon"></div>
                                 </div>
                             </li>
@@ -138,7 +138,7 @@
                                         <div class="avatar"></div>
                                         <div class="avatar"></div>
                                     </div>
-                                    <div>{{orderInfo.memberList.length}}+</div>
+                                    <div v-if="orderInfo.memberList">{{orderInfo.memberList.length}}+</div>
                                     <div class="icon addPerson"></div>
                                 </div>
                             </li>
@@ -312,7 +312,7 @@
             };
         },
         mounted() {
-           console.log(this.$route.params.id);
+
            if(this.$route.params.id){
                this.orderId=this.$route.params.orderId;
                this.orderNum=this.$route.params.orderId;
@@ -329,7 +329,7 @@
                     orderNum: this.orderNum,//订单编号
                     serviceId:this.serviceId,//服务方Id
                 }).then(function (res) {
-                    console.log("订单详情",res);
+
                     if (res.code == 200) {
                         that.orderInfo = res.data;
                         that.subcontractTable=res.data.subPackage;
@@ -347,7 +347,7 @@
                 //     return [0, 0];
                 //   }
                 // }
-                console.log(rowIndex);
+
                 if (rowIndex == 2 || rowIndex == 3) {
                     return [1, 5];
                     // if (columnIndex === 0) {

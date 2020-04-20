@@ -220,7 +220,7 @@
                         </div>
                         <ul class="labBoxs">
                             <li v-for="(ite,idx) in orderInfo.subPackage">
-                                <div>
+                                <div class="avatarBox">
                                     <el-avatar :src="ite.labLogo" :size="30"></el-avatar>
                                     <div>{{orderInfo.labName}}</div>
                                 </div>
@@ -1039,6 +1039,16 @@
                     align-items: center;
                     justify-content: space-between;
                     color: #333333;
+                    padding:0.5rem;
+
+                    .avatarBox{
+                        display: flex;
+                        align-items: center;
+
+                        .el-avatar{
+                            margin-right: 0.3rem;
+                        }
+                    }
 
 
                     & > div:first-child {
