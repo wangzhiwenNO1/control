@@ -1,29 +1,29 @@
 <template>
     <div>
-        <el-dialog title="外层 Dialog" center :visible.sync="outerVisible">
+        <el-dialog width="80%" title="报价比较" center :visible.sync="outerVisible">
             <div class="outBox">
                 <ul>
-                    <li>
+                    <li v-for="(item,index) in quotationList" :key="index">
                         <div class="avatarBox">
-                            <el-avatar :size="30"></el-avatar>
-                            <div>上海</div>
+                            <el-avatar :size="30" :src="item.serviceLabLogo"></el-avatar>
+                            <div>{{item.serviceLabName}}</div>
                         </div>
                         <div class="infoBox">
                             <div class="infoItem">
                                 <div>资质</div>
-                                <div>17025认可</div>
+                                <div>{{item.qualifications}}</div>
                             </div>
                             <div class="infoItem">
                                 <div>综合评价</div>
-                                <div>4.9/5</div>
+                                <div>{{item.compositeScore}}/5</div>
                             </div>
                             <div class="infoItem">
                                 <div>总价</div>
-                                <div>￥2000</div>
+                                <div>￥{{item.totalPrice}}</div>
                             </div>
                             <div class="infoItem">
                                 <div>完成周期</div>
-                                <div>详情</div>
+                                <div>{{item.deliveryCycle}}</div>
                             </div>
                         </div>
                         <div class="btnBoxs">
@@ -41,7 +41,7 @@
                 </ul>
             </div>
             <el-dialog
-                    width="30%"
+                    width="60%"
                     title="内层 Dialog"
                     :visible.sync="innerVisible"
                     append-to-body
@@ -83,6 +83,8 @@
     export default {
         data() {
             return {
+                quotationList:[],
+
                 centerDialogVisible: true,
                 innerVisible:false,
                 outerVisible:true,
@@ -101,7 +103,23 @@
 
             };
         },
+        mounted() {
+             this.getcompareQuotation();
+        },
         methods: {
+            //报价比较
+            getcompareQuotation(){
+                let that=this;
+
+                this.Axios.get("/lab2lab/lab2lab/v1/requestor/compareQuotation", {
+                    orderId:10
+                }).then(function (res) {
+                    console.log("报价比较",res);
+                    that.quotationList=res.data;
+                })
+            },
+
+
             handleRemove(file, fileList) {
                 console.log(file, fileList);
             },
@@ -129,8 +147,8 @@
         align-items: center;
 
         li{
-            width:14rem;
-            height: 20rem;
+            min-width:14rem;
+            min-height: 20rem;
             border:1px solid rgba(221, 224, 233, 1);
             line-height: 2.2rem;
             padding:1rem;

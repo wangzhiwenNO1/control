@@ -5,31 +5,31 @@
         <div class="title">需求申请表</div>
         <!-- label-position="left" -->
         <el-form
-          :model="ruleForm"
+          :model="formInfo"
           :rules="rules"
-          ref="ruleForm"
+          ref="formInfo"
           label-position="left"
           label-width="120px"
           class="demo-ruleForm"
         >
           <el-form-item label="需求名称" prop="name">
-            <el-input v-model="ruleForm.name" placeholder="输入需求的名称，便于识别"></el-input>
+            <el-input v-model="formInfo.demandName" placeholder="输入需求的名称，便于识别"></el-input>
           </el-form-item>
           <el-form-item label="需求项目">
-            <el-input v-model="ruleForm.name" placeholder="输入需求的名称，便于识别"></el-input>
+            <el-input v-model="formInfo.demandItem" placeholder="输入需求的名称，便于识别"></el-input>
           </el-form-item>
           <el-form-item label="依据规则">
-            <el-input v-model="ruleForm.name" placeholder="输入需求的名称，便于识别"></el-input>
+            <el-input v-model="formInfo.basisStandard" placeholder="输入需求的名称，便于识别"></el-input>
           </el-form-item>
           <el-form-item label="样品描述">
-            <el-input v-model="ruleForm.name" placeholder="输入需求的名称，便于识别"></el-input>
+            <el-input v-model="formInfo.sampleDesc" placeholder="输入需求的名称，便于识别"></el-input>
           </el-form-item>
 
           <el-form-item label="报价截止日期" prop="date1">
             <el-date-picker
               type="date"
               placeholder="选择日期"
-              v-model="ruleForm.date1"
+              v-model="formInfo.quotationFinishDate"
               style="width: 100%;"
             ></el-date-picker>
           </el-form-item>
@@ -37,13 +37,13 @@
             <el-date-picker
               type="date"
               placeholder="选择日期"
-              v-model="ruleForm.date2"
+              v-model="formInfo.finishDate"
               style="width: 100%;"
             ></el-date-picker>
           </el-form-item>
 
           <el-form-item label="其他要求">
-            <el-input v-model="ruleForm.name" placeholder="输入需求的名称，便于识别"></el-input>
+            <el-input v-model="formInfo.otherRequirements" placeholder="输入需求的名称，便于识别"></el-input>
           </el-form-item>
           <el-form-item label="技术资料">
             <div>上传需求相关的技术文件，如检测标准、试验计划等（选填）</div>
@@ -99,6 +99,21 @@
 export default {
   data() {
     return {
+      formInfo:{
+        email:"",
+        demandName:"",
+        demandItem:"",
+        basisStandard:"",
+        sampleDesc:"",
+        quotationFinishDate:"",
+        finishDate:"",
+        otherRequirements:"",
+        techFiles:"",
+
+      },
+      serviceProviders:[{id:"",labCode:"",labName:""}],//选择的服务方
+      projects:[{id:"",projectName:""}],
+
       tags: [
         { name: "标签一", type: "" },
         { name: "标签二", type: "success" },
@@ -206,9 +221,7 @@ export default {
     box-sizing: border-box;
     margin: 0;
   }
-  /*.el-form-item {*/
-  /*  margin-bottom: 10px;*/
-  /*}*/
+
   .formBox {
     padding: 1rem;
     box-sizing: border-box;

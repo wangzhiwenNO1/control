@@ -250,6 +250,7 @@
             </el-col>
         </el-row>
         <OrderList></OrderList>
+        <Price></Price>
     </div>
 </template>
 
@@ -257,12 +258,14 @@
     // @ is an alias to /src
     import Chat from "../components/Chat";
     import OrderList from "../components/dialog/OrderList";
+    import Price from "../components/dialog/Price";
 
     export default {
         name: "order",
         components: {
             Chat,
-            OrderList
+            OrderList,
+            Price
         },
         data() {
             return {
