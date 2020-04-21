@@ -1,33 +1,87 @@
 <template>
   <div class="teamBox">
     <div class="el-row">
-      <div class="el-col" v-for="item in 2" :key="item">
-        <div class="avatarBox">
-          <el-avatar :size="70" src="#"></el-avatar>
-          <div>周芷若</div>
-          <div class="label">销售经理</div>
+      <div v-for="(item,index) in serviceteams" :key="index" style="width: 100%">
+        <div class="el-col el-col-leader" v-if="item.isLeader" >
+          <div class="avatarBox">
+            <el-avatar :size="70" :src="item.pic"></el-avatar>
+            <div>{{item.realName}}</div>
+            <div class="label">{{item.position}}</div>
+          </div>
+          <div>
+            <div>
+              <span class="label">联系电话：</span>{{item.tel}}
+            </div>
+            <div>
+              <span class="label">联系邮箱：</span>{{item.email}}
+            </div>
+            <div>
+              <span class="label">微信号：</span>{{item.wx}}
+            </div>
+            <div class="btnRow">
+              <i class="el-icon-message"></i>
+              <i class="el-icon-chat-dot-square"></i>
+            </div>
+          </div>
         </div>
-        <div>
-          <div>
-            <span class="label">联系电话：</span>021—68686868
+
+        <div class="el-col" v-else >
+          <div class="avatarBox">
+            <el-avatar :size="70" :src="item.pic"></el-avatar>
+            <div>{{item.realName}}</div>
+            <div class="label">{{item.position}}</div>
           </div>
           <div>
-            <span class="label">联系邮箱：</span>zzr@tianji.com
-          </div>
-          <div>
-            <span class="label">微信号：</span>1368888888
-          </div>
-          <div class="btnRow">
-            <i class="el-icon-message"></i>
-            <i class="el-icon-chat-dot-square"></i>
+            <div>
+              <span class="label">联系电话：</span>{{item.tel}}
+            </div>
+            <div>
+              <span class="label">联系邮箱：</span>{{item.email}}
+            </div>
+            <div>
+              <span class="label">微信号：</span>{{item.wx}}
+            </div>
+            <div class="btnRow">
+              <i class="el-icon-message"></i>
+              <i class="el-icon-chat-dot-square"></i>
+            </div>
           </div>
         </div>
       </div>
+
+
+
     </div>
   </div>
 </template>
 <script>
-export default {};
+  export default {
+    data() {
+      return {
+
+        serviceteams: []
+      };
+    },
+    mounted() {
+      this.getServiceteams();
+    },
+    methods: {
+      //供应商服务团队列表
+      getServiceteams(){
+        let that=this;
+
+        this.Axios.get("/lab2lab/v1/requestor/getserviceteams", {
+          id:10
+        }).then(function (res) {
+          console.log("供应商服务团队列表",res);
+          that.serviceteams=res.data;
+
+        })
+      },
+
+
+    }
+  };
 </script>
 <style lang="less" scoped>
 .teamBox {
@@ -36,6 +90,7 @@ export default {};
 
   .el-row {
     display: flex;
+    flex-wrap: wrap;
   }
 
   .el-col {
@@ -45,8 +100,12 @@ export default {};
     line-height: 1.88rem;
     position: relative;
     box-sizing: border-box;
-    width: 50%;
+    width: 45%;
     margin: 1rem;
+
+  }
+  .el-col-leader{
+    margin-right: 5rem;
   }
 
   .avatarBox {
@@ -85,6 +144,6 @@ export default {};
     }
   }
 
-  
+
 }
 </style>

@@ -13,27 +13,27 @@
     </div>
     <div class="el-row">
       <div class="el-col">
-        <el-card class="box-card" shadow="hover">
+        <el-card class="box-card" shadow="hover" v-for="(item,index) in providerdevices" :key="index">
           <div class="machineItem">
             <div class="machineImg" @click="goToEquipment">
-              <el-image src="#" fit="fill"></el-image>
-              <div>TE-001 湿湿度试验箱</div>
-              <div class="company">上海天吉检测技术服务有限公司</div>
+              <el-image :src="providerdevices.devicePic" fit="fill"></el-image>
+              <div>{{providerdevices.deviceName}}</div>
+              <div class="company">{{providerdevices.deviceModel}}</div>
               <!-- <el-button round size="mini">取消关联</el-button> -->
             </div>
             <div class="machineInfo">
               <div class="title">适用检测项目</div>
-              <div class="tesing" v-for="item in 2" :key="item">
+              <div class="tesing" v-for="(ite,idex) in item.items" :key="idex">
                 <div class="tesItem">
                   <div class="name">
-                    <div>高温试验</div>
+                    <div>{{ite.projectName}}</div>
                     <div class="icon"></div>
                   </div>
                   <div>
-                    <span>收费标准：</span>￥30每小时
+                    <span>收费标准：</span>￥{{ite.price}}{{ite.unit}}
                   </div>
                   <div>
-                    <span>适用标准：</span>GB/T2423.1,IEC60068-2-1
+                    <span>适用标准：</span>{{ite.applicableStandard}}
                   </div>
                 </div>
                 <div>
@@ -112,6 +112,8 @@ import AddLink from "../dialog/AddLink";
 export default {
   data() {
     return {
+      providerdevices:"",
+
       dynamicTags: ["标签一", "标签二", "标签三"],
       options: [
         {
@@ -141,7 +143,23 @@ export default {
   components: {
     AddLink
   },
+  mounted() {
+    this.getproviderdevices();
+  },
   methods: {
+    //供应商服务能力
+    getproviderdevices(){
+      let that=this;
+
+      this.Axios.get("/lab2lab/v1/requestor/getproviderdevices", {
+        id:10
+      }).then(function (res) {
+        console.log("供应商服务能力",res);
+        that.providerdevices=res.data;
+
+      })
+    },
+
     handleClose(tag) {
       this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
     },
@@ -206,7 +224,6 @@ export default {
     .machineImg {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
       line-height: 2rem;
       padding: 0.5rem;

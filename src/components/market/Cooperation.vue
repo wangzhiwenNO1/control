@@ -4,51 +4,51 @@
       <el-col>
         <div class="grid-content viscosity">
           <div>
-            <span>交易金额：</span>198
+            <span>交易金额：</span>{{coperationdetail.turnover}}
           </div>
           <div>
             <span>客户粘度：</span>
-            <i class="icon"></i>优
+            <i class="icon"></i>{{coperationdetail.customerViscosity}}
           </div>
         </div>
       </el-col>
       <el-col>
         <div class="grid-content bg-purple-light">
           <div>
-            <span>询价总次数：</span>198
+            <span>询价总次数：</span>{{coperationdetail.enquiryTimes}}
           </div>
           <div>
-            <span>订单总数：</span>优
+            <span>订单总数：</span>{{coperationdetail.orderCount}}
           </div>
         </div>
       </el-col>
       <el-col>
         <div class="grid-content bg-purple">
           <div>
-            <span>近30天询价次数：</span>198
+            <span>近30天询价次数：</span>{{coperationdetail.enquiryTimesInMonth}}
           </div>
           <div>
-            <span>近30天交易次数：</span>优
-          </div>
-        </div>
-      </el-col>
-      <el-col>
-        <div class="grid-content bg-purple-light">
-          <div>
-            <span>以收付款：</span>￥60,000
-          </div>
-          <div>
-            <span>代收付款：</span>￥8,900
+            <span>近30天交易次数：</span>{{coperationdetail.orderCountInMonth}}
           </div>
         </div>
       </el-col>
       <el-col>
         <div class="grid-content bg-purple-light">
           <div>
-            <span>客户联系人：</span>￥60,000
+            <span>以收付款：</span>￥{{coperationdetail.receivedPayment}}
           </div>
           <div>
-            <span>客户经理：</span>陆凡
+            <span>代收付款：</span>￥{{coperationdetail.outstandingPayment}}
+          </div>
+        </div>
+      </el-col>
+      <el-col>
+        <div class="grid-content bg-purple-light">
+          <div>
+            <span>客户联系人：</span>￥{{coperationdetail.customerContact}}
+          </div>
+          <div>
+            <span>客户经理：</span>{{coperationdetail.customerManager}}
             <i class="el-icon-edit"></i>
           </div>
         </div>
@@ -59,38 +59,41 @@
       <el-table border size="small" :data="tableData" style="width: 100%">
         <el-table-column label="任务编号" width="180">
           <template slot-scope="scope">
-            <div>{{ scope.row.num }}</div>
+            <div>{{ scope.row.id }}</div>
           </template>
         </el-table-column>
         <el-table-column label="任务名称" width="180">
           <template slot-scope="scope">
-            <div>{{ scope.row.name }}</div>
+            <div>{{ scope.row.orderName }}</div>
           </template>
         </el-table-column>
         <el-table-column label="任务状态">
           <template slot-scope="scope">
-            <div class="taskStatusOne" v-if="scope.row.num">进行中</div>
-            <div class="taskStatusTwo" v-else>已完成</div>
+            <div class="taskStatusOne" v-if="scope.row.num==0">初始</div>
+            <div class="taskStatusOne" v-if="scope.row.num==1">报价中</div>
+            <div class="taskStatusOne" v-if="scope.row.num==2">进行中</div>
+            <div class="taskStatusOne" v-if="scope.row.num==3">已完成</div>
+            <div class="taskStatusTwo" v-else>已关闭</div>
           </template>
         </el-table-column>
         <el-table-column label="交易金额">
           <template slot-scope="scope">
-            <div>￥{{ scope.row.price }}</div>
+            <div>￥{{ scope.row.totalPrice }}</div>
           </template>
         </el-table-column>
         <el-table-column label="交易类型">
           <template slot-scope="scope">
-            <div v-if="scope.row.payStatus">
+            <div v-if="scope.row.totalPrice">
               <i></i>支出
             </div>
             <div v-else>
-              <i></i>支出
+              <i></i>收入
             </div>
           </template>
         </el-table-column>
         <el-table-column label="发票状态">
           <template slot-scope="scope">
-            <div class="payStatusOne" v-if="scope.row.fapiao">
+            <div class="payStatusOne" v-if="scope.row.invoiceStatus">
               <i></i>未开具
             </div>
             <div class="payStatusTwo" v-else>
@@ -100,13 +103,13 @@
         </el-table-column>
         <el-table-column label="首付款截止日期">
           <template slot-scope="scope">
-            <div>{{ scope.row.date }}</div>
+            <div>{{ scope.row.gatheringDate }}</div>
           </template>
         </el-table-column>
         <el-table-column label="收付款状态">
           <template slot-scope="scope">
-            <div class="paymentOne" v-if="scope.row.sta==0">未支付</div>
-            <div class="paymentTwo" v-else-if="scope.row.sta==1">已支付</div>
+            <div class="paymentOne" v-if="scope.row.gatheringStatus==0">未支付</div>
+            <div class="paymentTwo" v-else-if="scope.row.gatheringStatus==1">已支付</div>
             <div class="paymentThr" v-else>已逾期</div>
           </template>
         </el-table-column>
@@ -118,21 +121,27 @@
 export default {
   data() {
     return {
-      tableData: [
-        {
-          num: "123",
-          name: "王小虎",
-          status: 0,
-          price: 100,
-          payStatus: 0,
-          fapiao: 0,
-          date: "2019-02-03",
-          sta: 0
-        }
-      ]
+      coperationdetail:{},
+      tableData: []
     };
   },
+  mounted() {
+    this.getInfo();
+  },
   methods: {
+    //请求服务方信息
+    getInfo(){
+      let that=this;
+
+      this.Axios.get("/lab2lab/v1/requestor/getcoperationdetail", {
+        id:10
+      }).then(function (res) {
+        console.log("请求服务方信息",res);
+        that.coperationdetail=res.data;
+        that.tableData=res.data.transactionDetails;
+      })
+    },
+
     handleEdit(index, row) {
       console.log(index, row);
     },

@@ -4,7 +4,7 @@
       <div class="el-col">
         <div class="mechanism itemBox">
           <div class="title">机构简介</div>
-          <div>上海必为检测服务有限公司是独立的第三方检测机构，特色项目包括：EMC电磁兼 容试验、三综合振动试验、ELV有害物质分析等，服务</div>
+          <div>{{labelInfos.introduction}}</div>
         </div>
         <div class="itemBox certificateBox" >
           <div class="title">
@@ -12,8 +12,8 @@
             <el-button icon="el-icon-circle-plus-outline" size="mini" type="text">上传证书</el-button>
           </div>
           <ul>
-            <li>
-              <el-image src="#" fit="fill"></el-image>
+            <li v-for="(item,index) in labelInfos.certification" :key="index">
+              <el-image :src="item.attrUrl" fit="fill"></el-image>
             </li>
           </ul>
         </div>
@@ -21,17 +21,26 @@
       <div class="el-col">
           <div class="infoBox mechanism itemBox">
               <div class="title">基本信息</div>
-              <div class="">                
-                  <div><span>公司地址：</span>上海市浦东新区未来路138号 </div>
-                  <div><span>公司规模：</span>50-100人 </div>
-                  <div><span>公司性质：</span>私营企业</div>
-                  <div><span>成立时间：</span>2010年</div>
-                  <div><span>网站地址：</span>www</div>
+              <div class="">
+                  <div><span>公司地址：</span>{{labelInfos.address}}</div>
+                  <div><span>公司规模：</span>{{labelInfos.labScale}}人 </div>
+                  <div><span>公司性质：</span>{{labelInfos.labNature}}</div>
+                  <div><span>成立时间：</span>{{labelInfos.establishmentTime}}年</div>
+                  <div><span>网站地址：</span>{{labelInfos.labSite}}</div>
               </div>
           </div>
           <div class="mechanismTab itemBox">
               <div class="title">机构标签</div>
-              <div>期初检测，电磁兼容，材料分析，失效分析</div>
+              <div v-if="labelInfos.labelInfo">
+                  <el-tag
+                          v-for="(item,index) in labelInfos.labelInfo"
+                          :key="index"
+                          closable
+                          >
+                      {{item.labelName}}
+                  </el-tag>
+
+              </div>
           </div>
       </div>
     </div>
@@ -39,11 +48,32 @@
 </template>
 <script>
 
-export default {
-    components:{
+    export default {
+        data() {
+            return {
+                labelInfos: "",
+            };
+        },
+        mounted() {
+            this.getlabinfo();
+        },
+        methods: {
+            //供应商机构概况
+            getlabinfo(){
+                let that=this;
 
-    },
-};
+                this.Axios.get("/lab2lab/v1/requestor/getlabinfo", {
+                    id:10
+                }).then(function (res) {
+                    console.log("供应商机构概况",res);
+                    that.labelInfos=res.data;
+
+                })
+            },
+
+
+        }
+    };
 </script>
 <style lang="less" scoped>
 .profileBox {
@@ -65,6 +95,7 @@ export default {
     padding: 0.5rem;
     background: #ffffff;
     margin:1rem 1rem 1rem 0;
+      min-height: 15rem;
   }
 
     .title{
@@ -112,6 +143,18 @@ export default {
   }
 
   .certificateBox {
+      ul{
+          display: flex;
+
+          flex-wrap: wrap;
+          li{
+              margin:0.3rem;
+
+              .el-image{
+                  border:none;
+              }
+          }
+      }
     .el-image {
       width: 8.31rem;
       height: 12.25rem;
@@ -126,6 +169,9 @@ export default {
 
   .mechanism,.mechanismTab{
     min-height: 15rem;
+      .el-tag{
+          margin:0.3rem;
+      }
   }
 }
 </style>

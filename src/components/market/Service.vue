@@ -3,24 +3,16 @@
 
 
     <ul class="serviceUl">
-      <li>
-        <el-avatar class="avatar" :size="30" src="#"></el-avatar>
+      <li v-for="(item,index) in listInfo" :key="index">
+        <el-avatar class="avatar" :size="30" :src="listInfo.pic"></el-avatar>
         <div>
-          <div>令狐冲|上海达摩科技有限公司</div>
-          <div class="fen">综合评分：4.9/5.0</div>
-          <div>服务很及时，很专业，会继续合作。</div>
+          <div>{{item.userName}}|{{item.labName}}</div>
+          <div class="fen">综合评分：{{item.averageRate}}/5.0</div>
+          <div>{{item.remark}}</div>
           <div class="time">2019年8月6日 13:15</div>
         </div>
       </li>
-      <li>
-        <el-avatar class="avatar" :size="30" src="#"></el-avatar>
-        <div>
-          <div>令狐冲|上海达摩科技有限公司</div>
-          <div class="fen">综合评分：4.9/5.0</div>
-          <div>服务很及时，很专业，会继续合作。</div>
-          <div class="time">2019年8月6日 13:15</div>
-        </div>
-      </li>
+
     </ul>
 
     <el-pagination
@@ -29,9 +21,9 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page.sync="currentPage3"
-      :page-size="100"
+      :page-size="10"
       layout="prev, pager, next, jumper"
-      :total="1000"
+      :total="count"
     ></el-pagination>
 
   </div>
@@ -43,6 +35,34 @@ export default {
   name: "Service",
   components:{
     AddLink
+  },
+  data(){
+    return{
+      currentPage3:1,
+      listInfo:[],
+      count:"",
+    }
+  },
+  mounted() {
+    this.getList();
+  },
+  methods:{
+    getList(){
+      let that=this;
+
+      this.Axios.get("/lab2lab/v1/requestor/getrates", {
+        id:10,
+        page:1,
+        limit:10
+      }).then(function (res) {
+        console.log("评价列表",res);
+        that.listInfo=res.data;
+        that.count=res.count
+      })
+    },
+    handleSizeChange(){},
+    handleCurrentChange(){},
+
   }
 };
 </script>

@@ -102,12 +102,12 @@
         data() {
             return {
                 type: 1,
+                coperationdetail: {},
             }
         },
         mounted() {
-
         },
-      methods: {
+        methods: {
 
             changeType(type) {
                 this.type = type;
