@@ -167,14 +167,14 @@
                                     style="width: 100%"
                             >
                                 <el-table-column prop="id" label="序号" width="50"></el-table-column>
-                                <el-table-column prop="name" label="项目名称"></el-table-column>
-                                <el-table-column prop="amount1" label="单价"></el-table-column>
-                                <el-table-column prop="amount2" label="单位"></el-table-column>
-                                <el-table-column prop="amount3" label="数量"></el-table-column>
-                                <el-table-column prop="amount4" label="价格"></el-table-column>
+                                <el-table-column prop="projectName" label="项目名称"></el-table-column>
+                                <el-table-column prop="price" label="单价"></el-table-column>
+                                <el-table-column prop="unit" label="单位"></el-table-column>
+                                <el-table-column prop="num" label="数量"></el-table-column>
+                                <el-table-column prop="totalPrice" label="价格"></el-table-column>
                             </el-table>
                             <div class="RemarkBox">
-                                <div>预计订单交付周期 Expected Order Duration: <span>1周</span></div>
+                                <div>预计订单交付周期 Expected Order Duration: <span>{{deliveryCycle}}</span></div>
                                 <div>付款条件 Payment Conditions: <span>预付款50%，订单结束后30天内支付剩余50%</span></div>
                                 <div>备注说明Note:</div>
                                 <div class="Remarks">1. 随机振动试验需要客户提供试验支架。</div>
@@ -277,6 +277,8 @@
                 orderChangeRecord:[],//变更记录
                 orderProblemReport:[],//问题报告
 
+                quotehistory:"",
+
 
                 activeName: 1,
                 tableData: [
@@ -322,6 +324,7 @@
                this.serviceId=this.$route.params.orderId;
            }
            this.getOrderInfo();
+           this.getquotehistory();
         },
         methods: {
             //获取订单详情
@@ -341,7 +344,20 @@
                     }
                 })
             },
-
+            //查看历史报价
+            getquotehistory(){
+                let that = this;
+                this.Axios.get("/lab2lab/v1/provider/getquotehistory", {
+                    id:this.orderId,
+                    orderNum: this.orderNum,//订单编号
+                }).then(function (res) {
+                    console.log("查看历史报价",res);
+                    if (res.code == 200) {
+                       that.quotehistory=res.data;
+                       that.tableData=res.data.priceList;
+                    }
+                })
+            },
             arraySpanMethod({row, column, rowIndex, columnIndex}) {
                 // if (rowIndex % 2 === 0) {
                 //   if (columnIndex === 0) {

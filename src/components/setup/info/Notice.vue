@@ -4,17 +4,17 @@
 
         <el-form-item label="选择通知方式：" class="">
             <div class="checkbox">
-                <el-checkbox >邮件通知</el-checkbox>
+                <el-checkbox  v-model="isEmail">邮件通知</el-checkbox>
                 <el-checkbox>短信通知</el-checkbox>
             </div>
 
         </el-form-item>
         <div class="elCheckbox">
             <el-checkbox-group v-model="checkList" class="checkbox">
-                <el-checkbox label="订单状态更新时通知我"></el-checkbox>
-                <el-checkbox label="有新消息时通知我"></el-checkbox>
-                <el-checkbox label="有内部公告时通知我"></el-checkbox>
-                <el-checkbox label="关闭邮件通知功能"></el-checkbox>
+                <el-checkbox :disabled="!isEmail" @change="(e)=>handleCheckedCitiesChange(e,'orderStatusChanged')" label="订单状态更新时通知我" ></el-checkbox>
+                <el-checkbox :disabled="!isEmail" @change="(e)=>handleCheckedCitiesChange(e,'newMessageArrived')" label="有新消息时通知我" ></el-checkbox>
+                <el-checkbox :disabled="!isEmail" @change="(e)=>handleCheckedCitiesChange(e,'internalNotification')" label="有内部公告时通知我" ></el-checkbox>
+                <el-checkbox @change="(e)=>handleCheckedCitiesChange(e,'emailNotificationStatus')"  label="关闭邮件通知功能" ></el-checkbox>
             </el-checkbox-group>
         </div>
 
@@ -29,7 +29,17 @@
     export default {
         data() {
             return {
-                checkList: ['选中且禁用','复选框 A'],
+                isEmail:true,
+                formData:{
+                    emailNotificationStatus:0,
+                    orderStatusChanged:0,
+                    newMessageArrived:0,
+                    internalNotification:0,
+                },
+
+
+                checkList: ["邮件通知"],
+
                 ruleForm: {
                     name: '',
                     region: '',
@@ -77,15 +87,39 @@
                     that.quotationList=res.data;
                 })
             },
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        alert('submit!');
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
+            handleCheckedCitiesChange(e,name){
+                console.log(e,this.formData[name]);
+
+                if(e){
+                    this.formData[name]=1;
+                }else{
+                    this.formData[name]=0;
+                }
+            },
+            //更新email
+            submitForm() {
+                let data=this.formData;
+                let that = this;
+
+                if(this.isEmail){
+                    data.emailNotificationStatus=1;
+                }else{
+                    data.emailNotificationStatus=0;
+                }
+                console.log(data);
+
+
+                this.Axios.post("/lab2lab/v1/provider/seteconfig", data).then(function (res) {
+                   console.log("更新email",res);
+                })
+                // this.$refs[formName].validate((valid) => {
+                //     if (valid) {
+                //         alert('submit!');
+                //     } else {
+                //         console.log('error submit!!');
+                //         return false;
+                //     }
+                // });
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
