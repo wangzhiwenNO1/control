@@ -174,10 +174,10 @@
                                 <el-table-column prop="totalPrice" label="价格"></el-table-column>
                             </el-table>
                             <div class="RemarkBox">
-                                <div>预计订单交付周期 Expected Order Duration: <span>{{deliveryCycle}}</span></div>
-                                <div>付款条件 Payment Conditions: <span>预付款50%，订单结束后30天内支付剩余50%</span></div>
+                                <div>预计订单交付周期 Expected Order Duration: <span>{{quotehistory.deliveryCycle}}</span></div>
+                                <div>付款条件 Payment Conditions: <span>{{quotehistory.paymentTerms}}</span></div>
                                 <div>备注说明Note:</div>
-                                <div class="Remarks">1. 随机振动试验需要客户提供试验支架。</div>
+                                <div class="Remarks">{{quotehistory.remark}}</div>
                             </div>
                         </div>
                         <div class="upOfferBox">

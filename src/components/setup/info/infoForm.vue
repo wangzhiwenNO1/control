@@ -120,6 +120,17 @@
             };
         },
         methods: {
+            //查询当前用户信息
+            getuserinfo(){
+                let that = this;
+
+                this.Axios.post("/lab2lab/v1/provider/getuserinfo", {}).then(function (res) {
+                    console.log("查询当前用户信息",res);
+                    if(res.data){
+                        that.formData=res.data;
+                    }
+                })
+            },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {

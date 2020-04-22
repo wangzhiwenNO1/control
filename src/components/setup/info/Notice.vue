@@ -76,17 +76,11 @@
                 }
             };
         },
+        mounted() {
+            this.geteconfig();
+        },
         methods: {
-            seteconfig(){
-                let that=this;
 
-                this.Axios.get("/lab2lab/v1/provider/seteconfig", {
-                    orderId:10
-                }).then(function (res) {
-                    console.log("报价比较",res);
-                    that.quotationList=res.data;
-                })
-            },
             handleCheckedCitiesChange(e,name){
                 console.log(e,this.formData[name]);
 
@@ -95,6 +89,18 @@
                 }else{
                     this.formData[name]=0;
                 }
+            },
+            //查询Email通知配置
+            geteconfig(){
+
+                let that = this;
+
+                this.Axios.post("/lab2lab/v1/provider/seteconfig", {}).then(function (res) {
+                    console.log("查询Email通知配置",res);
+                    if(res.data){
+                        that.formData=res.data;
+                    }
+                })
             },
             //更新email
             submitForm() {

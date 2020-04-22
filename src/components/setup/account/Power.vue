@@ -89,7 +89,22 @@
                 }]
             }
         },
+        mounted() {
+            this.getauthority();
+        },
         methods: {
+            //查询权限
+            getauthority(){
+                let that = this;
+
+                this.Axios.get("/lab2lab/v1/provider/getauthority", {}).then(function (res) {
+                    console.log("查询权限",res);
+                    if(res.code==200){
+
+                    }
+
+                })
+            },
             submit(){
                 console.log(this.tableData);
                 let that = this;
