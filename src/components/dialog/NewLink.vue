@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-dialog title="添加链接" width="40%" center :visible.sync="dialogFormVisible">
+        <el-dialog title="新的链接" width="40%" center :visible.sync="dialogFormVisible">
             <div class="infoBox">
                 <el-avatar size="50"></el-avatar>
                 <div>
@@ -43,8 +43,8 @@
             </div>
 
             <div slot="footer" class="dialog-footer">
-                <el-button round size="mini" type="primary" @click="centerDialogVisible = false">提 交</el-button>
-                <el-button round size="mini" class="cancel" @click="centerDialogVisible = false">取 消</el-button>
+                <el-button round size="mini" type="primary" @click="handlenewlink(1)">允许链接</el-button>
+                <el-button round size="mini" class="cancel" @click="handlenewlink(2)">忽略链接</el-button>
             </div>
         </el-dialog>
     </div>
@@ -54,6 +54,7 @@
         data() {
             return {
                 dialogFormVisible:true,
+                orderId:"112",
                 formData:{
                     linkedLabId:"",
                     linkTypeCode:"",
@@ -121,18 +122,21 @@
         created() {
         },
         methods:{
-            //需求方添加链接
-            newlink(){
+            //需求方管理新链接
+            handlenewlink(type){
                 let that=this;
                 let data=that.formData;
-                that.Axios.get("/lab2lab/v1/requestor/newlink", data).then(function (res) {
+                that.Axios.get("/lab2lab/v1/requestor/handlenewlink", {
+                    id:that.orderId,
+                    status:type
+                }).then(function (res) {
 
                     if (res.code == 200) {
                         that.$message({
                             type: 'success',
-                            message: '订单完成'
+                            message: '完成'
                         });
-
+                        that.centerDialogVisible = false
                     }
                 })
             },

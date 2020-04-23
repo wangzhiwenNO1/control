@@ -227,8 +227,8 @@
                                 <div>￥{{ite.totalPrice}}</div>
                                 <div class="btnBox">
                                     <div class="infoBtn" @click="goToInfo">详情</div>
-                                    <div class="ratifyBtn" v-if="orderInfo.status==1">批准</div>
-                                    <div class="refuseBtn" v-if="orderInfo.status==1">拒绝</div>
+                                    <div class="ratifyBtn" @click="quote(1,idx)" v-if="orderInfo.status==1">批准</div>
+                                    <div class="refuseBtn" @click="quote(2,idx)" v-if="orderInfo.status==1">拒绝</div>
                                 </div>
                             </li>
                         </ul>
@@ -432,6 +432,34 @@
 
                     }
                 })
+            },
+            //需求方批准（拒绝）报价
+            quote(type,index){
+
+                let that = this;
+                this.$prompt('拒绝原因', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                }).then(({value}) => {
+
+                    that.Axios.get("/lab2lab/v1/requestor/quote", {
+                        id:that.orderInfo[index].id,
+                        result: type,
+                        reason:value,
+                    }).then(function (res) {
+                        console.log("需求方批准（拒绝）报价",res);
+                        if (res.code == 200) {
+                            that.$message({
+                                type: 'success',
+                                message: '成功'
+                            });
+
+                        }
+                    })
+                })
+
+
+
             },
             handleCommand(command) {
                 this.$message("click on item " + command);
