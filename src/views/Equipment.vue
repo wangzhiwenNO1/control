@@ -5,20 +5,24 @@
                 <div class="itemBox">
                     <div class="title">设备详情</div>
                     <div class="infoItem">
-                        <div class="tags">外部</div>
-                        <div class="imgBox"></div>
-                        <div>TE-001 湿湿度试验箱</div>
+                        <div class="tags" v-if="devicedetail.isLink==1">外部</div>
+                        <div class="tags" v-else>内部</div>
+                        <div class="imgBox">
+                            <img :src="devicedetail.devicePic" alt="">
+                        </div>
+                        <div>{{devicedetail.deviceName}}</div>
                     </div>
                     <div class="btnRows">
                         <el-button size="mini" round class="greenBtn">返回</el-button>
-                        <el-button size="mini" round class="cancelBtn">取消关联</el-button>
+                        <el-button size="mini" round class="cancelBtn" v-if="devicedetail.isNetwork==1">取消关联</el-button>
+                        <el-button size="mini" round class="cancelBtn" v-else>关联</el-button>
                     </div>
                 </div>
                 <div class="itemBox">
                     <div class="title">设备所有方</div>
                     <div class="nameList">
                         <el-avatar :size="30"></el-avatar>
-                        <div>上海必为检测技术服务有限公司</div>
+                        <div>{{devicedetail.deviceOwnerName}}</div>
                     </div>
                 </div>
                 <div class="itemBox">
@@ -63,9 +67,27 @@ import AddProduct from "../components/dialog/AddProduct";
         data(){
             return{
                 type:1,
+                devicedetail:"",
             }
         },
+        mounted() {
+            this.getdevicedetail();
+        },
         methods:{
+            //设备详情
+            getdevicedetail(){
+                let that=this;
+                that.Axios.get("/lab2lab/v1/provider/getdevicedetail", {
+                    id:12,
+                    deviceCode:"122",
+
+                }).then(function (res) {
+                    console.log("设备详情",res);
+                    if (res.code == 200) {
+                        that.devicedetail=res.data;
+                    }
+                })
+            },
             changeType(type){
                 this.type=type;
             }

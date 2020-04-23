@@ -10,7 +10,11 @@
           <el-step title="结束"></el-step>
         </el-steps>
         <div class="btnRow">
+          <div class="btn" @click="cancelorder">取消订单</div>
+          <div class="btn">确认完成</div>
           <div class="btn">录入变更</div>
+          <div class="btn">驳回完成</div>
+          <div class="btn">再次下单</div>
         </div>
       </div>
 
@@ -60,14 +64,45 @@ export default {
   data() {
     return {
       active: 4,
-      desc: ""
+      desc: "",
+      orderId:"001",
     };
+  },
+  created() {
+  },
+  methods:{
+  //  取消订单
+    cancelorder(){
+
+      let that = this;
+      this.$prompt('请输入取消原因', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then(({ value }) => {
+
+        that.Axios.get("/lab2lab/v1/requestor/cancelorder", {
+          id:that.orderId,
+          reason: value,//订单编号
+        }).then(function (res) {
+
+          if (res.code == 200) {
+            that.$message({
+              type: 'success',
+              message: '取消成功'
+            });
+
+          }
+        })
+
+
+      })
+    },
   }
 };
 </script>
 <style lang="less">
 .chatTop {
-  
+
   border-radius: 0.3rem;
 
   .el-step__title {

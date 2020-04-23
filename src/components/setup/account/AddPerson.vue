@@ -3,14 +3,14 @@
        <div class="title">添加新成员</div>
 
         <el-form-item label="姓名">
-            <el-input v-model="ruleForm.name"></el-input>
+            <el-input v-model="ruleForm.userName"></el-input>
         </el-form-item>
 
         <el-form-item label="邮箱">
-            <el-input v-model="ruleForm.site"></el-input>
+            <el-input v-model="ruleForm.email"></el-input>
         </el-form-item>
         <el-form-item label="角色">
-            <el-select v-model="value" size="mini" placeholder="请选择">
+            <el-select v-model="ruleForm.roleCode" size="mini" placeholder="请选择">
                 <el-option
                         v-for="item in options"
                         :key="item.value"
@@ -21,7 +21,7 @@
         </el-form-item>
 
         <el-form-item label="职位">
-            <el-input v-model="ruleForm.ypwd"></el-input>
+            <el-input v-model="ruleForm.position"></el-input>
         </el-form-item>
 
 
@@ -36,14 +36,11 @@
         data() {
             return {
                 ruleForm: {
-                    name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: false,
-                    type: [],
-                    resource: '',
-                    desc: ''
+                    userName: '',
+                    email: '',
+                    roleCode: '',
+                    position: '',
+
                 },
                 rules: {
                     name: [
@@ -89,6 +86,20 @@
             };
         },
         methods: {
+            //添加用户
+            adduser(){
+                let that = this;
+                let data=that.resetForm;
+                this.Axios.get("/lab2lab/v1/provider/adduser", data).then(function (res) {
+                    console.log("添加用户",res);
+                    if (res.code == 200) {
+                        this.$message({
+                            message: '添加成功',
+                            type: 'success'
+                        });
+                    }
+                })
+            },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {

@@ -38,7 +38,7 @@
           <div class="title">快捷操作</div>
           <div class="btnRow">
             <div><i class="iconEdit"></i><span>提交新需求</span></div>
-            <div><i class="el-icon-circle-plus-outline"></i><span>邀请实验室</span></div>
+            <div @click="open"><i class="el-icon-circle-plus-outline"></i><span>邀请实验室</span></div>
           </div>
         </div>
         <div class="leftRight itemBox">
@@ -49,17 +49,17 @@
               <li v-for="(i,index) in count" class="infinite-list-item" :key="index">{{ i }}</li>
             </ul>-->
             <ul class="dealt">
-              <li v-for="(i,index) in 3" :key="index">
+              <li v-for="(item,index) in todolist" :key="index">
                 <div>
                   <div class="dealtLeft">
-                    <i class="icon" v-if="i!=3"></i>
+                    <i class="icon" v-if="item.isRead==0"></i>
                     <i class="icon readIcon" v-else></i>
-                    <span>您收到一份报价，请查看</span>
+                    <span>{{item.title}}</span>
                   </div>
                   <div class="time">2019-08-19 10:34</div>
                 </div>
                 <div>
-                  <el-button size="mini" round v-if="i!=3">查看详情</el-button>
+                  <el-button size="mini" round v-if="item.isRead==0">查看详情</el-button>
                   <div class="checkedBtn" v-else>已查看</div>
                 </div>
               </li>
@@ -123,6 +123,8 @@ export default {
     return {
       numbers:"",
       count: 0,
+      todolist:[],
+
       options: [
         {
           value: "选项1",
@@ -174,6 +176,7 @@ export default {
   },
   mounted() {
     this.getnumbers();
+    this.gettodolist();
   },
   methods: {
     getnumbers(){
@@ -184,10 +187,49 @@ export default {
       }).then(function (res) {
         console.log(res);
         if(res.code==200){
-          that.numbers=res.data;
+          that.todolist=res.data;
         }
       })
 
+    },
+    // 需求方代办事项列表
+    gettodolist(){
+      let that = this;
+      this.Axios.get("/lab2lab/v1/requestor/gettodolist",{
+      }).then(function (res) {
+        console.log("需求方代办事项列表",res);
+        if(res.code==200){
+          that.numbers=res.data.toDoList;
+        }
+      })
+    },
+    open() {
+      let that = this;
+      this.$prompt('请输入拟邀请实验室联系人的邮箱地址', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+        inputErrorMessage: '邮箱格式不正确'
+      }).then(({ value }) => {
+        //用户邀请实验室
+        that.Axios.get("/lab2lab/v1/requestor/invitenewcustomer", {
+          email:value
+        }).then(function (res) {
+          console.log("用户邀请实验室",res);
+          if (res.code == 200) {
+            that.$message({
+              type: 'success',
+              message: '已邀请'
+            });
+          }
+        })
+
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消输入'
+        });
+      });
     },
     load() {
       this.count += 2;
@@ -432,7 +474,7 @@ export default {
       background-size: contain;
     }
 
-    
+
   }
   .echartBox{
       height: 20rem;

@@ -7,30 +7,30 @@
                 <el-row class="rows">
                     <el-col :span="8">
                         <div class="label">设备信息</div>
-                        <div class="">TE-001</div>
+                        <div class="">{{devicedetail.deviceCode}}</div>
                     </el-col>
 
                     <el-col :span="8">
                         <div class="label">设备名称</div>
-                        <div class="">湿度试验箱</div>
+                        <div class="">{{devicedetail.deviceName}}</div>
                     </el-col>
 
                     <el-col :span="8">
                         <div class="label">设备厂商和型号</div>
-                        <div class="">CT-100</div>
+                        <div class="">{{devicedetail.deviceModel}}</div>
                     </el-col>
 
                     <el-col :span="8">
                         <div class="label">设备图片</div>
                         <div class="">
-                            <el-avatar :size="20"></el-avatar>
+                            <el-avatar :size="20" :src="devicedetail.devicePic"></el-avatar>
                         </div>
                     </el-col>
 
                     <el-col :span="8">
                         <div class="label">设置类别</div>
                         <div class="">
-                            <el-select v-model="value" size="mini" placeholder="请选择">
+                            <el-select v-model="devicedetail.deviceType" size="mini" placeholder="请选择">
                                 <el-option
                                         v-for="item in options"
                                         :key="item.value"
@@ -43,7 +43,7 @@
 
                     <el-col :span="8">
                         <div class="label">设备是否联网</div>
-                        <div class="">是</div>
+                        <div class="">{{devicedetail.isNetwork==0?'否':'是'}}</div>
                     </el-col>
 
                 </el-row>
@@ -52,7 +52,7 @@
                         <div class="label">技术参数</div>
                     </el-col>
                     <el-col :span="20">
-                        <div class="">温度：60℃ 温度：5%RH - 95%RH</div>
+                        <div class="">{{devicedetail.techParams}}</div>
                     </el-col>
 
                 </el-row>
@@ -65,20 +65,20 @@
                         :data="tableData"
                         style="width: 100%">
                     <el-table-column
-                            label="姓名名称"
+                            label="设备名称"
                             width="80">
                         <template slot-scope="scope">
-                            <div>{{ scope.row.num }}</div>
+                            <div>{{ scope.row.projectName }}</div>
                         </template>
                     </el-table-column>
-                    <el-table-column label="设备名称">
+                    <el-table-column label="适用标准">
                         <template slot-scope="scope">
-                            <div>{{ scope.row.name }}</div>
+                            <div>{{ scope.row.applicableStandard }}</div>
                         </template>
                     </el-table-column>
                     <el-table-column label="认可项目">
                         <template slot-scope="scope">
-                            <div v-if="scope.row.num">是</div>
+                            <div v-if="scope.row.confirmProject==1">是</div>
                             <div v-else>否</div>
                         </template>
                     </el-table-column>
@@ -90,14 +90,14 @@
                     </el-table-column>
                     <el-table-column label="单价">
                         <template slot-scope="scope">
-                            <div v-if="scope.row.payStatus"><i></i>￥40</div>
+                            <div v-if="scope.row.price"><i></i>￥40</div>
                             <div v-else><i></i>￥40</div>
                         </template>
                     </el-table-column>
                     <el-table-column label="计价单位">
                         <template slot-scope="scope">
 
-                            <el-select v-model="value" size="mini" placeholder="请选择">
+                            <el-select v-model="scope.row.unit" size="mini" placeholder="请选择">
                                 <el-option
                                         v-for="item in options"
                                         :key="item.value"
@@ -119,15 +119,47 @@
         name: "eripment_info",
         data() {
             return {
-                tableData: [{
-                    num: '高温测试',
-                    name: 'GB/T24223.IEC6006B 2-1',
-                    status: 0,
-                    price: 0,
-                    payStatus: 30,
-                    sta: 0
-                }]
+                devicedetail:{},
+
+                tableData: [],
+                options: [{
+                    value: '选项1',
+                    label: '黄金糕'
+                }, {
+                    value: '选项2',
+                    label: '双皮奶'
+                }, {
+                    value: '选项3',
+                    label: '蚵仔煎'
+                }, {
+                    value: '选项4',
+                    label: '龙须面'
+                }, {
+                    value: '选项5',
+                    label: '北京烤鸭'
+                }],
+                type:""
             }
+        },
+        created() {
+            this.getdevicedetailTwo();
+        },
+        methods:{
+            //设备详情
+            getdevicedetailTwo(){
+                let that=this;
+                that.Axios.get("/lab2lab/v1/provider/getdevicedetail", {
+                    id:12,
+                    deviceCode:"122",
+
+                }).then(function (res) {
+                    console.log("设备详情",res);
+                    if (res.code == 200) {
+                        that.devicedetail=res.data;
+                        that.tableData=res.data.items;
+                    }
+                })
+            },
         },
     }
 </script>

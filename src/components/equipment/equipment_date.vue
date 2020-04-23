@@ -118,22 +118,22 @@
                     </el-table-column>
                     <el-table-column label="任务编号">
                         <template slot-scope="scope">
-                            <div>{{ scope.row.num }}</div>
+                            <div>{{ scope.row.taskCode }}</div>
                         </template>
                     </el-table-column>
                     <el-table-column label="使用项目/事件">
                         <template slot-scope="scope">
-                            <div>{{ scope.row.things }}</div>
+                            <div>{{ scope.row.itemName }}</div>
                         </template>
                     </el-table-column>
                     <el-table-column label="使用时长">
                         <template slot-scope="scope">
-                            <div>{{ scope.row.times }}</div>
+                            <div>{{ scope.row.userTime }}</div>
                         </template>
                     </el-table-column>
                     <el-table-column label="收入">
                         <template slot-scope="scope">
-                            <div>{{ scope.row.price }}</div>
+                            <div>{{ scope.row.income }}</div>
                         </template>
                     </el-table-column>
                     <el-table-column label="成本">
@@ -196,7 +196,25 @@
 
             };
         },
-      methods:{
+        mounted() {
+            this.getdeviceusagelog();
+        },
+        methods:{
+          //  设备使用记录
+          getdeviceusagelog(){
+              let that=this;
+              that.Axios.get("/lab2lab/v1/provider/getdeviceusagelog", {
+                  id:12,
+                  deviceCode:"122",
+                  count:"10",
+                  pageNumber:"1"
+              }).then(function (res) {
+                  console.log("设备使用记录",res);
+                  if (res.code == 200) {
+                      that.tableDataTwo=res.data;
+                  }
+              })
+          },
         changeWeek(type){
           this.weekType=type;
         },
