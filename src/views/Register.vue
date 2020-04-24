@@ -39,7 +39,7 @@
                         </el-col>
                         <el-col :span="24">
                             <div class="grid-content purple">
-                                <el-input placeholder="请输入所属机构的详细地址"></el-input>
+                                <el-input placeholder="请输入所属机构的详细地址" v-model="formData.adress"></el-input>
                             </div>
                         </el-col>
                     </el-row>
@@ -59,6 +59,12 @@
     export default {
         data() {
             return {
+                formData:{
+
+                    adress:"",//详细地址
+                },
+
+
                 ChineseDistricts:ChineseDistricts,
                 province:[],
                 shi1: [],
@@ -72,31 +78,66 @@
             }
         },
         methods:{
+            //注册接口
+            register(){
+                let that = this;
+                let data=this.formData;
+                this.Axios.post("/lab2lab/v1/requestor/register", data).then(function (res) {
+                    console.log(res);
+                    if (res.code == 200) {
+                        that.orderInfo = res.data;
+
+                    }
+                })
+            },
+
             // 加载china地点数据，三级
             getCityData:function(){
                 let that = this;
                 that.ChineseDistricts.forEach(function(item,index){
                     //省级数据
                     that.province.push({id: item.code, value: item.name, children: item.cityList})
+                    console.log(item.cityList);
                 })
             },
             // 选省
             choseProvince:function(e) {
                 let that = this;
-                that.city = [];
-                that.block = [];
-                that.cname = '';
-                that.bname = '';
-                for (var index2 in that.province) {
-                    if (e === that.province[index2].id) {
-                        that.shi1 = that.province[index2].children;
-                        that.pname = that.province[index2].value;
-                        that.shi1.forEach(function(citem,cindex){
-                            that.city.push({id:citem.code,value: citem.name, children: citem.areaList})
-                        })
+                that.province.forEach((item,index)=>{
+
+                    if(e==item.code){
+                        that.pname =item.name;
+                        let cityList=that.ChineseDistricts.city;
+                        console.log(cityList);
+
+                        let city=[];
+                        cityList.forEach((ite,index)=>{
+                            if(ite.province==item.province){
+                                city.push(ite);
+                            }
+                        });
+                        this.city=city;
+
                     }
-                }
-                console.log(that.pname)
+                });
+
+
+                return;
+                // that.city = [];
+                // that.block = [];
+                // that.cname = '';
+                // that.bname = '';
+                //
+                // for (var index2 in that.province) {
+                //     if (e === that.province.province) {
+                //
+                //         that.shi1 = that.province[index2].children;
+                //         that.pname = that.province[index2].value;
+                //         that.shi1.forEach(function(citem,cindex){
+                //             that.city.push({id:citem.code,value: citem.name, children: citem.areaList})
+                //         })
+                //     }
+                // }
             },
             // 选市
             choseCity:function(e) {
@@ -112,7 +153,6 @@
                         })
                     }
                 }
-                console.log(that.cname)
             },
             // 选区
             choseBlock:function(e) {
@@ -124,7 +164,7 @@
         },
 
         created:function(){
-            console.log(this.ChineseDistricts.province);
+            console.log(this.ChineseDistricts);
             this.province=this.ChineseDistricts.province;
             // this.getCityData()
 
