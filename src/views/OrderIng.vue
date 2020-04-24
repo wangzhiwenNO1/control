@@ -453,7 +453,9 @@
                                 type: 'success',
                                 message: '成功'
                             });
-
+                            that.$router.push({
+                                path: "/login"
+                            });
                         }
                     })
                 })

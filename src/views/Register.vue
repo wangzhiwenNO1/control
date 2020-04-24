@@ -85,7 +85,10 @@
                 this.Axios.post("/lab2lab/v1/requestor/register", data).then(function (res) {
                     console.log(res);
                     if (res.code == 200) {
-                        that.orderInfo = res.data;
+                        that.$message({
+                            type: 'success',
+                            message: '注册成功'
+                        });
 
                     }
                 })
