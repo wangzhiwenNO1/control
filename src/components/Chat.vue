@@ -23,11 +23,11 @@
                     <div class="icon"></div>
                 </div>
                 <ul class="chatHistory">
-                    <li>
+                    <li v-for="(item,index) in chatList">
                         <div class="time">2019年9月16日 15:37</div>
                         <div class="chatItem">
                             <div class="avatar"></div>
-                            <div class="chatText">王经理，贵司的付款已收到，谢谢！</div>
+                            <div class="chatText">{{item.message}}</div>
                         </div>
                     </li>
                     <li>
@@ -66,11 +66,27 @@
                 desc: "",
                 orderId: "001",
                 rejectReason:"",//拒绝原因
+                chatList:[],
             };
         },
         created() {
+            this.getmessagehistory()
         },
         methods: {
+            //消息记录
+            getmessagehistory(){
+                let that=this;
+                that.Axios.get("/lab2lab/v1/provider/getmessagehistory", {
+                    id: that.orderId,
+                    orderNum:"7678687"
+                }).then(function (res) {
+                    console.log("消息记录",res);
+                    if (res.code == 200) {
+                        that.chatList=res.data;
+
+                    }
+                })
+            },
             // 需求方确认订单完成
             acceptorderfinish(){
                 let that=this;
