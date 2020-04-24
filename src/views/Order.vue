@@ -146,7 +146,7 @@
                                 <div>评价服务方</div>
                                 <div>
                                     <i></i>
-                                    <div class="icon iconEvaluate"></div>
+                                    <div class="icon iconEvaluate" @click="showRateprovider"></div>
                                 </div>
                             </li>
                         </ul>
@@ -181,7 +181,10 @@
                             </div>
                         </div>
                         <div class="upOfferBox">
-                            <el-button type="primary" size="mini" round class="upOffer">下载报价</el-button>
+                            <a :href="upData.attrUrl" :download="upData.attrUrl">
+                                <el-button type="primary" size="mini" round class="upOffer" @click="savequote">下载报价</el-button>
+                            </a>
+
                         </div>
                     </div>
                     <div class="middleThree itemBox">
@@ -249,8 +252,38 @@
                 </div>
             </el-col>
         </el-row>
+
+        <div>
+            <el-dialog title="服务评价"  width="30%" center :visible.sync="dialogFormVisible">
+                <div class="rateBox">
+                    <div>服务及时性：</div>
+                    <el-rate v-model="formData.timelessScore" :colors="colors"></el-rate>
+                </div>
+                <div class="rateBox">
+                    <div>服务准确性：</div>
+                    <el-rate v-model="formData.accuracyScore" :colors="colors"></el-rate>
+                </div>
+                <div class="rateBox">
+                    <div>服务专业性：</div>
+                    <el-rate v-model="formData.specialScore" :colors="colors"></el-rate>
+                </div>
+                <div class="label">评语</div>
+                <div>
+                    <el-input v-model="formData.remark" type="textarea" autocomplete="off"></el-input>
+                </div>
+
+                <div slot="footer" class="dialog-footer">
+                    <el-button round size="mini" type="primary" @click="rateprovider">提 交</el-button>
+                    <el-button round size="mini" class="cancel" @click="centerDialogVisible = false">取 消</el-button>
+                </div>
+            </el-dialog>
+        </div>
+
+
+
+
         <OrderList></OrderList>
-        <Price></Price>
+
     </div>
 </template>
 
@@ -258,14 +291,14 @@
     // @ is an alias to /src
     import Chat from "../components/Chat";
     import OrderList from "../components/dialog/OrderList";
-    import Price from "../components/dialog/Price";
+
 
     export default {
         name: "order",
         components: {
             Chat,
             OrderList,
-            Price
+
         },
         data() {
             return {
@@ -279,6 +312,7 @@
 
                 quotehistory:"",
 
+                upData:"",//
 
                 activeName: 1,
                 tableData: [
@@ -313,7 +347,23 @@
                         name: "有害物质",
                         amount1: "上海必为检测技术服务有限公司"
                     }
-                ]
+                ],
+
+
+                formData:{
+                    orderServiceId:12,
+                    accuracyScore:"",
+                    timelessScore:'',
+                    specialScore:"",
+                    remark:"",
+                },
+
+
+                colors:["#2C64FF","#2C64FF","#2C64FF"],
+                centerDialogVisible: true,
+                dialogFormVisible:false,
+
+                formLabelWidth: '120px'
             };
         },
         mounted() {
@@ -355,6 +405,38 @@
                     if (res.code == 200) {
                        that.quotehistory=res.data;
                        that.tableData=res.data.priceList;
+                    }
+                })
+            },
+            //下载报价
+            savequote(){
+                let that = this;
+                this.Axios.get("/lab2lab/v1/provider/savequote", {
+                    orderNum:"234",
+                    quoteNum: "123",//订单编号
+                }).then(function (res) {
+                    console.log("下载报价",res);
+                    if (res.code == 200) {
+                        that.quotehistory=res.data;
+                        that.tableData=res.data.priceList;
+                    }
+                })
+            },
+            showRateprovider(){
+                this.dialogFormVisible=true;
+            },
+            // 评价服务方
+            rateprovider(){
+                let that=this;
+                let data=that.formData;
+                that.Axios.post("/lab2lab/v1/requestor/rateprovider", data).then(function (res) {
+                    console.log("评价服务方",res);
+                    if (res.code == 200) {
+                        this.$message({
+                            type: 'success',
+                            message: '已评价服务方'
+                        });
+                        that.dialogFormVisible = false
                     }
                 })
             },

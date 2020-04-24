@@ -121,18 +121,7 @@ export default {
         { name: "标签四", type: "warning" },
         { name: "标签五", type: "danger" }
       ],
-      fileList: [
-        {
-          name: "food.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        },
-        {
-          name: "food2.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        }
-      ],
+      fileList: [],
       ruleForm: {
         name: "",
         region: "",
@@ -184,6 +173,10 @@ export default {
   },
   methods: {
     submitForm(formName) {
+
+
+
+      return;
       this.$refs[formName].validate(valid => {
         if (valid) {
           alert("submit!");

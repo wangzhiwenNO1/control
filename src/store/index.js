@@ -14,6 +14,10 @@ export default new Vuex.Store({
       state.hasLogin = true;
       state.userInfo = provider;
     },
+    logOut(state, provider){
+      state.hasLogin = false;
+      state.userInfo = {};
+    },
     changeTeamMembers(state, provider){
       state.TeamMembers = provider;
     },

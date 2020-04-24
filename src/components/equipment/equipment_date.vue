@@ -79,11 +79,17 @@
                                 <div class="calendar-day">{{ data.day.split('-').slice(2).join('-') }}</div>
                                 <div v-for="(item,index) in calendarData" :key="index">
                                     <div v-if="(item.months).indexOf(data.day.split('-').slice(1)[0])!=-1&&(item.days).indexOf(data.day.split('-').slice(2).join('-'))!=-1">
-                                      <el-row class="calendarItem">
-                                        <el-col v-if="item.useing!=0" :span="item.useing"><div class="gridItem bg-purple-gl"></div></el-col>
-                                        <el-col v-if="item.used!=0" :span="item.used"><div class="gridItem bg-purple bg-purple-ligh "></div></el-col>
-                                        <el-col v-if="item.unavailable!=0" :span="item.unavailable"><div class="gridItem bg-purple-ash"></div></el-col>
-                                      </el-row>
+                                        <el-row class="calendarItem">
+                                            <el-col v-if="item.useing!=0" :span="item.useing">
+                                                <div class="gridItem bg-purple-gl"></div>
+                                            </el-col>
+                                            <el-col v-if="item.used!=0" :span="item.used">
+                                                <div class="gridItem bg-purple bg-purple-ligh "></div>
+                                            </el-col>
+                                            <el-col v-if="item.unavailable!=0" :span="item.unavailable">
+                                                <div class="gridItem bg-purple-ash"></div>
+                                            </el-col>
+                                        </el-row>
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +163,7 @@
         name: "eripment_info",
         data() {
             return {
-              weekType:1,
+                weekType: 1,
                 tableData: [
                     {
                         date: "00:00 02:00",
@@ -183,14 +189,14 @@
                     }
                 ],
                 calendarData: [
-                    {months: ['03'], days: ['01'],useing:24,used:0,unavailable:0},
-                    {months: ['03'], days: ['02'],useing:12,used:12,unavailable:0},
-                    {months: ['03'], days: ['03'],useing:0,used:24,unavailable:0},
-                    {months: ['03'], days: ['04'],useing:6,used:18,unavailable:0},
-                    {months: ['03'], days: ['05'],useing:3,used:21,unavailable:24},
-                    {months: ['03'], days: ['06'],useing:20,used:4,unavailable:24},
-                  {months: ['03'], days: ['07'],useing:0,used:0,unavailable:24},
-                  {months: ['03'], days: ['08'],useing:0,used:0,unavailable:24},
+                    {months: ['03'], days: ['01'], useing: 24, used: 0, unavailable: 0},
+                    {months: ['03'], days: ['02'], useing: 12, used: 12, unavailable: 0},
+                    {months: ['03'], days: ['03'], useing: 0, used: 24, unavailable: 0},
+                    {months: ['03'], days: ['04'], useing: 6, used: 18, unavailable: 0},
+                    {months: ['03'], days: ['05'], useing: 3, used: 21, unavailable: 24},
+                    {months: ['03'], days: ['06'], useing: 20, used: 4, unavailable: 24},
+                    {months: ['03'], days: ['07'], useing: 0, used: 0, unavailable: 24},
+                    {months: ['03'], days: ['08'], useing: 0, used: 0, unavailable: 24},
                 ],
                 value: new Date()
 
@@ -198,27 +204,43 @@
         },
         mounted() {
             this.getdeviceusagelog();
+            this.getdevicecalendar();
         },
-        methods:{
-          //  设备使用记录
-          getdeviceusagelog(){
-              let that=this;
-              that.Axios.get("/lab2lab/v1/provider/getdeviceusagelog", {
-                  id:12,
-                  deviceCode:"122",
-                  count:"10",
-                  pageNumber:"1"
-              }).then(function (res) {
-                  console.log("设备使用记录",res);
-                  if (res.code == 200) {
-                      that.tableDataTwo=res.data;
-                  }
-              })
-          },
-        changeWeek(type){
-          this.weekType=type;
-        },
-      }
+        methods: {
+            //  设备使用记录
+            getdeviceusagelog() {
+                let that = this;
+                that.Axios.get("/lab2lab/v1/provider/getdeviceusagelog", {
+                    id: 12,
+                    deviceCode: "122",
+                    count: "10",
+                    pageNumber: "1"
+                }).then(function (res) {
+                    console.log("设备使用记录", res);
+                    if (res.code == 200) {
+                        that.tableDataTwo = res.data;
+                    }
+                })
+            },
+            // 设备日历
+            getdevicecalendar() {
+                let that = this;
+                that.Axios.get("/lab2lab/v1/provider/getdeviceusagelog", {
+                    id: 12,
+                    deviceCode: "122",
+                    startDate: "2020-01-01",
+                    endDate: "2020-02-01"
+                }).then(function (res) {
+                    console.log("设备日历", res);
+                    if (res.code == 200) {
+                        that.tableDataTwo = res.data;
+                    }
+                })
+            },
+            changeWeek(type) {
+                this.weekType = type;
+            },
+        }
     };
 </script>
 
@@ -229,7 +251,7 @@
         color: #202535;
         line-height: 30px;
         font-size: 12px;
-      margin-bottom: 1rem;
+        margin-bottom: 1rem;
     }
 
     .is-selected {
@@ -242,26 +264,27 @@
         content: '当月';
     }
 
-    .bg-purple-gl{
-      background:rgba(178, 196, 246, 1);
+    .bg-purple-gl {
+        background: rgba(178, 196, 246, 1);
     }
 
-    .bg-purple-ligh{
+    .bg-purple-ligh {
 
-      background: rgba(176, 226, 128, 1);
-    }
-    .bg-purple-ash{
-      background: rgba(223, 224, 229, 1);
+        background: rgba(176, 226, 128, 1);
     }
 
-    .calendarItem{
-      border-radius: 1rem;
-      height: 1.2rem;
-      overflow: hidden;
+    .bg-purple-ash {
+        background: rgba(223, 224, 229, 1);
+    }
 
-      .gridItem{
+    .calendarItem {
+        border-radius: 1rem;
         height: 1.2rem;
-      }
+        overflow: hidden;
+
+        .gridItem {
+            height: 1.2rem;
+        }
     }
 
 

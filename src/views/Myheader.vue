@@ -84,7 +84,7 @@
                             <i class="el-icon-download"></i>
                             <span>投诉建议</span>
                         </li>
-                        <li>
+                        <li @click="logout">
                             <i class="el-icon-download"></i>
                             <span>退出</span>
                         </li>
@@ -135,6 +135,7 @@
 
 <script>
     import {mapState} from "vuex";
+    import { mapMutations } from 'vuex';
     export default {
         name: "Myheader",
         computed: {
@@ -151,6 +152,7 @@
             console.log(this.TeamMembers);
         },
         methods:{
+            ...mapMutations(['logOut']),
             jump(type) {
                 this.type = type;
                 let url = "";
@@ -180,6 +182,23 @@
                 this.$router.push({
                     path: url
                 });
+            },
+            //需求方登出
+            logout(){
+                let that=this;
+                this.Axios.get("/lab2lab/v1/requestor/logout",{
+                    userName:this.userName,
+                    password:this.password,
+                }).then(function (res) {
+                    console.log(res);
+                    if(res.code==200){
+                        that.logOut();
+                        that.setup=false;
+                        that.$router.push({
+                            path: "/login",
+                        })
+                    }
+                })
             },
             changeNotice() {
                 this.notice = !this.notice;

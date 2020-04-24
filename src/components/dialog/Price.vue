@@ -27,7 +27,7 @@
                             </div>
                         </div>
                         <div class="btnBoxs">
-                            <el-button round size="mini" class="blueBtn" @click="outerVisible = false">批准</el-button>
+                            <el-button round size="mini" class="blueBtn" @click="innerVisible = false">批准</el-button>
                             <el-button round size="mini" class="redBtn" @click="innerVisible = true">详情</el-button>
                         </div>
                     </li>
@@ -67,8 +67,8 @@
                         </el-upload>
                     </div>
                     <div class="btnBoxs">
-                        <el-button round size="mini" class="blueBtn" @click="outerVisible = false">批准</el-button>
-                        <el-button round size="mini" class="redBtn" @click="innerVisible = true">取消</el-button>
+                        <el-button round size="mini" class="blueBtn" @click="changeisShow">批准</el-button>
+                        <el-button round size="mini" class="redBtn" @click="changeisShow">取消</el-button>
                     </div>
                 </el-form>
             </el-dialog>
@@ -81,6 +81,7 @@
 
 <script>
     export default {
+        props:["isShow"],
         data() {
             return {
                 quotationList:[],
@@ -107,6 +108,9 @@
              this.getcompareQuotation();
         },
         methods: {
+            changeisShow(){
+                this.$emit("changeShow", false);
+            },
             //报价比较
             getcompareQuotation(){
                 let that=this;
