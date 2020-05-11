@@ -134,8 +134,8 @@
 
 
                 charts: '',
-                opinion: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
-                opinionData: [335,310,234, 135,548],
+                // opinion: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'],
+                // opinionData: [335,310,234, 135,548],
 
 
                 options: [
@@ -218,6 +218,32 @@
                     this.getordercount();
                 }
             },
+            // 需求方代办事项列表
+            gettodolist() {
+                let that = this;
+                this.Axios.get("/lab2lab/v1/requestor/gettodolist", {}).then(function (res) {
+                    console.log("需求方代办事项列表", res);
+                    if (res.code == 200) {
+                        that.todolist = res.data;
+                    }
+                })
+            },
+            //  获取需求方数字统计
+            getNumbers() {
+
+                let that = this;
+                this.Axios.get("/lab2lab/v1/requestor/getnumbers", {
+                }).then(function (res) {
+                    console.log(res);
+                    if (res.code == 200) {
+
+                        that.numbers = res.data;
+                    }
+                })
+
+            },
+
+            //echart表格
             drawPie(id) {
                 let that=this;
                 this.charts = echarts.init(document.getElementById(id))
@@ -242,30 +268,7 @@
                     ]
                 })
             },
-            //  获取需求方数字统计
-            getNumbers() {
 
-                let that = this;
-                this.Axios.get("/lab2lab/v1/requestor/getnumbers", {
-                }).then(function (res) {
-                    console.log(res);
-                    if (res.code == 200) {
-
-                        that.numbers = res.data;
-                    }
-                })
-
-            },
-            // 需求方代办事项列表
-            gettodolist() {
-                let that = this;
-                this.Axios.get("/lab2lab/v1/requestor/gettodolist", {}).then(function (res) {
-                    console.log("需求方代办事项列表", res);
-                    if (res.code == 200) {
-                        that.todolist = res.data;
-                    }
-                })
-            },
             //切换分析类型
             changeAnalyze(type){
                 if(type==1){

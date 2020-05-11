@@ -315,40 +315,7 @@
                 upData:"",//
 
                 activeName: 1,
-                tableData: [
-                    {
-                        id: "1",
-                        name: "王小虎",
-                        amount1: "234",
-                        amount2: "3.2",
-                        amount3: 10,
-                        amount4: 10
-                    },
-                    {
-                        id: "2",
-                        name: "王小虎",
-                        amount1: "165",
-                        amount2: "4.43",
-                        amount3: 12,
-                        amount4: 10
-                    },
-                    {
-                        id: "合计 Total Price：",
-                        name: "￥12,600"
-                    },
-                    {
-                        id: "含税价格 Final Price with Tax：",
-                        name: "￥12,600"
-                    }
-                ],
-                tableDatas: [
-                    {
-                        id: "1",
-                        name: "有害物质",
-                        amount1: "上海必为检测技术服务有限公司"
-                    }
-                ],
-
+                tableData: [],
 
                 formData:{
                     orderServiceId:12,
@@ -357,7 +324,6 @@
                     specialScore:"",
                     remark:"",
                 },
-
 
                 colors:["#2C64FF","#2C64FF","#2C64FF"],
                 centerDialogVisible: true,
@@ -412,8 +378,8 @@
             savequote(){
                 let that = this;
                 this.Axios.get("/lab2lab/v1/provider/savequote", {
-                    orderNum:"234",
-                    quoteNum: "123",//订单编号
+                    orderNum:that.orderId,
+                    quoteNum: that.orderNum,//订单编号
                 }).then(function (res) {
                     console.log("下载报价",res);
                     if (res.code == 200) {

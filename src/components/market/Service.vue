@@ -38,12 +38,17 @@ export default {
   },
   data(){
     return{
+      orderId:"",//订单管理
       currentPage3:1,
       listInfo:[],
       count:"",
     }
   },
   mounted() {
+    if(this.$route.params.id){
+      this.orderId=this.$route.params.orderId;
+
+    }
     this.getList();
   },
   methods:{
@@ -51,13 +56,13 @@ export default {
       let that=this;
 
       this.Axios.get("/lab2lab/v1/requestor/getrates", {
-        id:10,
+        id:that.orderId,
         page:1,
         limit:10
       }).then(function (res) {
         console.log("评价列表",res);
         that.listInfo=res.data;
-        that.count=res.count
+         that.count=res.count
       })
     },
     handleSizeChange(){},
