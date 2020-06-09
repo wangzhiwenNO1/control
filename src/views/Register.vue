@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div>
-                <el-button round>注册</el-button>
+                <el-button round @click="register">注册</el-button>
             </div>
         </div>
         <div class="goBack">返回首页 <i class="el-icon-arrow-right"></i></div>
@@ -82,6 +82,7 @@
             register(){
                 let that = this;
                 let data=this.formData;
+
                 this.Axios.post("/lab2lab/v1/requestor/register", data).then(function (res) {
                     console.log(res);
                     if (res.code == 200) {

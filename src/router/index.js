@@ -52,7 +52,7 @@ const routes = [
         path: '/market',/*供应商管理*/
         name: 'market',
         component: () => import(/* webpackChunkName: "about" */ '../views/Market.vue'),
-        
+
     },
     {
         path: '/suppliers',/*订单*/
@@ -63,9 +63,9 @@ const routes = [
         path: '/ability',/*设备管理*/
         name: 'ability',
         component: () => import(/* webpackChunkName: "about" */ '../components/market/Ability'),
-        
+
     },
-   
+
     {
         path: '/demand',/*申请表*/
         name: 'demand',
@@ -91,6 +91,12 @@ const routes = [
                 component: () => import(/* webpackChunkName: "about" */ '../components/setup/Organization.vue'),
             },
             {
+
+
+
+
+
+
                 path: 'information',
                 component: () => import(/* webpackChunkName: "about" */ '../components/setup/Information.vue'),
             },

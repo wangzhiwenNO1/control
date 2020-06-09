@@ -115,6 +115,8 @@
             },
 
             jump(){
+
+
                 this.$router.push({
                     path: "/register"
                 });

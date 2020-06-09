@@ -63,7 +63,7 @@
             ...mapMutations(['login']),
             goToLogin(){
                 let that=this;
-                this.Axios.post("/lab2lab/v1/provider/login",{
+                this.Axios.post("/lab2lab/v1/system/login",{
                     userName:this.userName,
                     password:this.password,
                 }).then(function (res) {
@@ -81,7 +81,7 @@
             getTeam() {
                 let that = this;
                 console.log(12);
-                this.Axios.get("/lab2lab/v1/provider/getteammember",{
+                this.Axios.get("/lab2lab/v1/system/getteammember",{
                     // access_token:that.userInfo.access_token
                 }).then(function (res) {
                     console.log(res);
