@@ -6,31 +6,31 @@
             <div>
                 <div class="label">姓名</div>
                 <div>
-                    <el-input placeholder="请输入真实姓名"></el-input>
+                    <el-input v-model="formData.userName" placeholder="请输入真实姓名"></el-input>
                 </div>
             </div>
             <div>
                 <div class="label">邮箱地址</div>
                 <div>
-                    <el-input placeholder="email@example.com"></el-input>
+                    <el-input v-model="formData.email" placeholder="email@example.com"></el-input>
                 </div>
             </div>
             <div>
                 <div class="label">联系电话</div>
                 <div>
-                    <el-input placeholder="请输入11位手机号"></el-input>
+                    <el-input v-model="formData.phone" placeholder="请输入11位手机号"></el-input>
                 </div>
             </div>
             <div>
                 <div class="label">密码</div>
                 <div>
-                    <el-input placeholder="8-16位字母、数字和符号两种以上的组合"></el-input>
+                    <el-input v-model="formData.password" placeholder="8-16位字母、数字和符号两种以上的组合"></el-input>
                 </div>
             </div>
             <div>
                 <div class="label">确认密码</div>
                 <div>
-                    <el-input placeholder="请再次输入新设置的密码"></el-input>
+                    <el-input v-model="formData.confirmPassword" placeholder="请再次输入新设置的密码"></el-input>
                 </div>
             </div>
             <div class="btnRows">
@@ -56,7 +56,14 @@
                 pname:'',//省的名字
                 cname:'',//市的名字
                 bname:'' , //区的名字
-                value: ''
+                value: '',
+                formData:{
+                    userName:"",
+                    email:"",
+                    phone:"",
+                    password:"",
+                    confirmPassword:""
+                }
             }
         },
         methods:{
@@ -69,54 +76,8 @@
                 })
             },
 
-            // 选省
-
-            choseProvince:function(e) {
-                let that = this;
-                that.city = [];
-                that.block = [];
-                that.cname = '';
-                that.bname = '';
-                for (var index2 in that.province) {
-                    if (e === that.province[index2].id) {
-                        that.shi1 = that.province[index2].children;
-                        that.pname = that.province[index2].value;
-                        that.shi1.forEach(function(citem,cindex){
-                            that.city.push({id:citem.code,value: citem.name, children: citem.areaList})
-                        })
-                    }
-                }
-                console.log(that.pname)
-
-            },
-
-            // 选市
-
-            choseCity:function(e) {
-                let that = this;
-                that.block = [];
-                for (var index3 in that.city) {
-                    if (e === that.city[index3].id) {
-                        that.qu1 = that.city[index3].children
-                        that.cname = that.city[index3].value
-                        that.E = that.qu1[0].id
-                        that.qu1.forEach(function(bitem,bindex){
-                            that.block.push({id:bitem.code,value: bitem.name, children: []})
-                        })
-                    }
-
-                }
-                console.log(that.cname)
-            },
-            // 选区
-            choseBlock:function(e) {
-                this.bname=e;
-                console.log(this.bname)
-            },
-
             jump(){
-
-
+                this.$store.commit('register', this.formData);
                 this.$router.push({
                     path: "/register"
                 });

@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     hasLogin: false,
     userInfo:{},
+    registerInfo:{},
     TeamMembers:{},//团队成员
   },
   mutations: {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     changeTeamMembers(state, provider){
       state.TeamMembers = provider;
+    },
+    register(state,provider){
+      state.registerInfo=provider;
     },
   },
   actions: {

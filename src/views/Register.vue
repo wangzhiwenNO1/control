@@ -60,11 +60,17 @@
         data() {
             return {
                 formData:{
-
-                    adress:"",//详细地址
+                    position:"",//职位
+                    labCode:"",//
+                    labName:"",
+                    provinceCode:"",
+                    province:"",
+                    cityCode:"",
+                    city:"",
+                    countryCode:"",
+                    country:"",
+                    adress:"",
                 },
-
-
                 ChineseDistricts:ChineseDistricts,
                 province:[],
                 shi1: [],
@@ -72,7 +78,9 @@
                 city:[],
                 block:[],
                 pname:'',//省的名字
+                pcode:"",
                 cname:'',//市的名字
+                ccode:"",
                 bname:'' , //区的名字
                 value: ''
             }
@@ -81,9 +89,20 @@
             //注册接口
             register(){
                 let that = this;
-                let data=this.formData;
 
-                this.Axios.post("/lab2lab/v1/requestor/register", data).then(function (res) {
+                let registerData=this.$store.state.registerInfo;
+
+
+                Object.keys(registerData).forEach(item=>{
+                    that.formData[item]=registerData[item];
+                })
+                this.formData.province=that.pname;
+                this.formData.provinceCode=that.pcode;
+
+                this.formData.city=that.cname;
+                this.formData.cityCode=that.ccode;
+
+                this.Axios.post("/lab2lab/v1/requestor/register", this.formData).then(function (res) {
                     console.log(res);
                     if (res.code == 200) {
                         that.$message({
@@ -101,7 +120,6 @@
                 that.ChineseDistricts.forEach(function(item,index){
                     //省级数据
                     that.province.push({id: item.code, value: item.name, children: item.cityList})
-                    console.log(item.cityList);
                 })
             },
             // 选省
@@ -111,8 +129,9 @@
 
                     if(e==item.code){
                         that.pname =item.name;
+                        that.pcode=item.code;
+                        console.log(item);
                         let cityList=that.ChineseDistricts.city;
-                        console.log(cityList);
 
                         let city=[];
                         cityList.forEach((ite,index)=>{
@@ -125,23 +144,6 @@
                     }
                 });
 
-
-                return;
-                // that.city = [];
-                // that.block = [];
-                // that.cname = '';
-                // that.bname = '';
-                //
-                // for (var index2 in that.province) {
-                //     if (e === that.province.province) {
-                //
-                //         that.shi1 = that.province[index2].children;
-                //         that.pname = that.province[index2].value;
-                //         that.shi1.forEach(function(citem,cindex){
-                //             that.city.push({id:citem.code,value: citem.name, children: citem.areaList})
-                //         })
-                //     }
-                // }
             },
             // 选市
             choseCity:function(e) {
@@ -150,7 +152,10 @@
                 for (var index3 in that.city) {
                     if (e === that.city[index3].id) {
                         that.qu1 = that.city[index3].children
-                        that.cname = that.city[index3].value
+                        that.cname = that.city[index3].value;
+
+                        that.ccode=that.city[index3].code;
+
                         that.E = that.qu1[0].id
                         that.qu1.forEach(function(bitem,bindex){
                             that.block.push({id:bitem.code,value: bitem.name, children: []})
