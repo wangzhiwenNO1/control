@@ -63,7 +63,7 @@
             ...mapMutations(['login']),
             goToLogin(){
                 let that=this;
-                this.Axios.post("/lab2lab/v1/system/login",{
+                this.Axios.post("/lab2lab/v1/requestor/login",{
                     userName:this.userName,
                     password:this.password,
                 }).then(function (res) {

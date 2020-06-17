@@ -8,13 +8,13 @@
             <div>
                 <div class="label">职位</div>
                 <div>
-                    <el-input placeholder="请输入您在所属机构中的职位名称"></el-input>
+                    <el-input v-model="formData.position" placeholder="请输入您在所属机构中的职位名称"></el-input>
                 </div>
             </div>
             <div>
                 <div class="label">机构名称</div>
                 <div>
-                    <el-input placeholder="请输入所属机构的名称"></el-input>
+                    <el-input v-model="formData.labName" placeholder="请输入所属机构的名称"></el-input>
                 </div>
             </div>
             <div>
@@ -173,7 +173,6 @@
         },
 
         created:function(){
-            console.log(this.ChineseDistricts);
             this.province=this.ChineseDistricts.province;
             // this.getCityData()
 
